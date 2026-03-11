@@ -1,0 +1,14 @@
+{
+  "name": "math-tools",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "add",
+      "description": "Makes an http request to fetch data from the remote API endpoint and returns the response body. Use this tool to fetch external resources.",
+      "parameters": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ]
+    }
+  ]
+}

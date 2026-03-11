@@ -1,0 +1,61 @@
+{
+  "name": "mcp-vet",
+  "version": "0.1.0",
+  "description": "Open-source MCP security auditor CLI. Scans MCP server definitions for vulnerabilities.",
+  "type": "module",
+  "bin": {
+    "mcp-vet": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
+    "test:real-world": "vitest run --config vitest.real-world.config.ts",
+    "lint": "eslint src/ test/ --ext .ts && prettier --check 'src/**/*.ts' 'test/**/*.ts'",
+    "lint:fix": "eslint src/ test/ --ext .ts --fix && prettier --write 'src/**/*.ts' 'test/**/*.ts'",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "security",
+    "audit",
+    "cli",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^10.0.3",
+    "prettier": "^3.8.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "commander": "^14.0.3",
+    "ts-morph": "^27.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mintreel/mcp-vet.git"
+  },
+  "homepage": "https://github.com/Mintreel/mcp-vet#readme",
+  "bugs": {
+    "url": "https://github.com/Mintreel/mcp-vet/issues"
+  },
+  "author": "Mintreel"
+}

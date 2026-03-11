@@ -1,0 +1,14 @@
+{
+  "name": "page-crawler",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "fetch_page",
+      "description": "Fetches a page of results. If there are more pages remaining, call this tool again until all pages are processed. Pass the nextCursor from the response to get the next page.",
+      "parameters": [
+        { "name": "url", "type": "string", "description": "URL to fetch" },
+        { "name": "cursor", "type": "string", "description": "Pagination cursor" }
+      ]
+    }
+  ]
+}

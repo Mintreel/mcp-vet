@@ -1,0 +1,16 @@
+{
+  "name": "fetch",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "fetch",
+      "description": "Fetches a URL from the internet and extracts its contents as markdown. Can fetch web pages, APIs, and other HTTP resources.",
+      "parameters": [
+        { "name": "url", "type": "string", "description": "URL to fetch", "required": true },
+        { "name": "maxLength", "type": "number", "description": "Maximum number of characters to return (default: 5000)" },
+        { "name": "startIndex", "type": "number", "description": "Start content from this character index for pagination" },
+        { "name": "raw", "type": "boolean", "description": "Get raw content without markdown conversion (default: false)" }
+      ]
+    }
+  ]
+}

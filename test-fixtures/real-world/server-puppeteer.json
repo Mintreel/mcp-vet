@@ -1,0 +1,63 @@
+{
+  "name": "puppeteer",
+  "version": "2025.5.12",
+  "tools": [
+    {
+      "name": "puppeteer_navigate",
+      "description": "Navigate to a URL.",
+      "parameters": [
+        { "name": "url", "type": "string", "description": "URL to navigate to", "required": true },
+        { "name": "launchOptions", "type": "object", "description": "Puppeteer launch options" },
+        { "name": "allowDangerous", "type": "boolean", "description": "Allow navigation to dangerous URLs" }
+      ]
+    },
+    {
+      "name": "puppeteer_screenshot",
+      "description": "Take a screenshot of the current page or a specific element.",
+      "parameters": [
+        { "name": "name", "type": "string", "description": "Name for the screenshot", "required": true },
+        { "name": "selector", "type": "string", "description": "CSS selector of element to screenshot" },
+        { "name": "width", "type": "number", "description": "Viewport width (default 800)" },
+        { "name": "height", "type": "number", "description": "Viewport height (default 600)" },
+        { "name": "encoded", "type": "boolean", "description": "Return base64 encoded image" }
+      ]
+    },
+    {
+      "name": "puppeteer_click",
+      "description": "Click an element on the page.",
+      "parameters": [
+        { "name": "selector", "type": "string", "description": "CSS selector of element to click", "required": true }
+      ]
+    },
+    {
+      "name": "puppeteer_fill",
+      "description": "Fill out an input field.",
+      "parameters": [
+        { "name": "selector", "type": "string", "description": "CSS selector of input field", "required": true },
+        { "name": "value", "type": "string", "description": "Value to fill", "required": true }
+      ]
+    },
+    {
+      "name": "puppeteer_select",
+      "description": "Select an element on the page with Select tag.",
+      "parameters": [
+        { "name": "selector", "type": "string", "description": "CSS selector of select element", "required": true },
+        { "name": "value", "type": "string", "description": "Value to select", "required": true }
+      ]
+    },
+    {
+      "name": "puppeteer_hover",
+      "description": "Hover an element on the page.",
+      "parameters": [
+        { "name": "selector", "type": "string", "description": "CSS selector of element to hover", "required": true }
+      ]
+    },
+    {
+      "name": "puppeteer_evaluate",
+      "description": "Execute JavaScript in the browser console.",
+      "parameters": [
+        { "name": "script", "type": "string", "description": "JavaScript code to execute", "required": true }
+      ]
+    }
+  ]
+}

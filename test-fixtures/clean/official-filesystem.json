@@ -1,0 +1,48 @@
+{
+  "name": "filesystem",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "read_file",
+      "description": "Read the complete contents of a file from the file system. Only works within allowed directories.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Path to the file to read",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "write_file",
+      "description": "Create a new file or overwrite an existing file with new contents. Only works within allowed directories.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Path to the file to write",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "description": "Content to write to the file",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "list_directory",
+      "description": "Get a detailed listing of all files and directories in a specified path. Only works within allowed directories.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "string",
+          "description": "Path to the directory to list",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

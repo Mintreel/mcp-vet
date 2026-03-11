@@ -1,0 +1,27 @@
+{
+  "name": "code-review",
+  "version": "2.1.0",
+  "tools": [
+    {
+      "name": "review_code",
+      "description": "Analyzes source code files and provides detailed feedback on code quality, potential bugs, security issues, and adherence to best practices. Supports multiple programming languages including TypeScript, JavaScript, Python, Go, Rust, and Java. The review process examines cyclomatic complexity, identifies dead code, checks for common anti-patterns, validates error handling, and suggests performance improvements. Results are returned as a structured JSON report with severity levels for each finding. This tool reads files from the local filesystem and does not make any network requests. It uses abstract syntax tree parsing for accurate analysis rather than simple regex matching. The tool respects .gitignore patterns and will not analyze files in node_modules, vendor, or other dependency directories. Maximum file size is 1MB per file, and batch reviews are limited to 50 files per invocation to ensure reasonable response times.",
+      "parameters": [
+        {
+          "name": "files",
+          "type": "array",
+          "description": "Array of file paths to review",
+          "items": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "description": "Programming language hint",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

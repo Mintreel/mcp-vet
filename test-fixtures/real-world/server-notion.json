@@ -1,0 +1,143 @@
+{
+  "name": "notion",
+  "version": "0.0.7",
+  "tools": [
+    {
+      "name": "get-user",
+      "description": "Retrieve a user by their user ID.",
+      "parameters": [
+        { "name": "user_id", "type": "string", "description": "The ID of the user to retrieve", "required": true }
+      ]
+    },
+    {
+      "name": "get-users",
+      "description": "List all users in the workspace.",
+      "parameters": [
+        { "name": "start_cursor", "type": "string", "description": "Pagination cursor for next page" },
+        { "name": "page_size", "type": "number", "description": "Number of results per page (default 100)" }
+      ]
+    },
+    {
+      "name": "get-self",
+      "description": "Retrieve your token's bot user.",
+      "parameters": []
+    },
+    {
+      "name": "post-database-query",
+      "description": "Query a database to retrieve entries matching filter criteria.",
+      "parameters": [
+        { "name": "database_id", "type": "string", "description": "The ID of the database to query", "required": true },
+        { "name": "filter_properties", "type": "string", "description": "Properties to filter results by" }
+      ]
+    },
+    {
+      "name": "post-search",
+      "description": "Search by title across all pages and databases in the workspace.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Search query string" },
+        { "name": "start_cursor", "type": "string", "description": "Pagination cursor" },
+        { "name": "page_size", "type": "number", "description": "Number of results per page" }
+      ]
+    },
+    {
+      "name": "get-block-children",
+      "description": "Retrieve block children for a given block.",
+      "parameters": [
+        { "name": "block_id", "type": "string", "description": "The ID of the parent block", "required": true },
+        { "name": "start_cursor", "type": "string", "description": "Pagination cursor" },
+        { "name": "page_size", "type": "number", "description": "Number of results per page" }
+      ]
+    },
+    {
+      "name": "patch-block-children",
+      "description": "Append new children blocks to a parent block.",
+      "parameters": [
+        { "name": "block_id", "type": "string", "description": "The ID of the parent block", "required": true }
+      ]
+    },
+    {
+      "name": "retrieve-a-block",
+      "description": "Retrieve a block by its ID.",
+      "parameters": [
+        { "name": "block_id", "type": "string", "description": "The ID of the block", "required": true }
+      ]
+    },
+    {
+      "name": "update-a-block",
+      "description": "Update a block's content or properties.",
+      "parameters": [
+        { "name": "block_id", "type": "string", "description": "The ID of the block to update", "required": true }
+      ]
+    },
+    {
+      "name": "delete-a-block",
+      "description": "Delete a block by its ID.",
+      "parameters": [
+        { "name": "block_id", "type": "string", "description": "The ID of the block to delete", "required": true }
+      ]
+    },
+    {
+      "name": "retrieve-a-page",
+      "description": "Retrieve a page by its ID.",
+      "parameters": [
+        { "name": "page_id", "type": "string", "description": "The ID of the page", "required": true },
+        { "name": "filter_properties", "type": "string", "description": "Properties to include in response" }
+      ]
+    },
+    {
+      "name": "patch-page",
+      "description": "Update page properties.",
+      "parameters": [
+        { "name": "page_id", "type": "string", "description": "The ID of the page to update", "required": true }
+      ]
+    },
+    {
+      "name": "post-page",
+      "description": "Create a new page in a database or as a child of another page.",
+      "parameters": []
+    },
+    {
+      "name": "create-a-database",
+      "description": "Create a new database as a child of a page.",
+      "parameters": []
+    },
+    {
+      "name": "update-a-database",
+      "description": "Update a database's properties or title.",
+      "parameters": [
+        { "name": "database_id", "type": "string", "description": "The ID of the database to update", "required": true }
+      ]
+    },
+    {
+      "name": "retrieve-a-database",
+      "description": "Retrieve a database by its ID.",
+      "parameters": [
+        { "name": "database_id", "type": "string", "description": "The ID of the database", "required": true }
+      ]
+    },
+    {
+      "name": "retrieve-a-page-property",
+      "description": "Retrieve a page property item by page ID and property ID.",
+      "parameters": [
+        { "name": "page_id", "type": "string", "description": "The ID of the page", "required": true },
+        { "name": "property_id", "type": "string", "description": "The ID of the property", "required": true },
+        { "name": "page_size", "type": "number", "description": "Number of results per page" },
+        { "name": "start_cursor", "type": "string", "description": "Pagination cursor" }
+      ]
+    },
+    {
+      "name": "retrieve-a-comment",
+      "description": "Retrieve comments on a block.",
+      "parameters": [
+        { "name": "block_id", "type": "string", "description": "The ID of the block", "required": true },
+        { "name": "start_cursor", "type": "string", "description": "Pagination cursor" },
+        { "name": "page_size", "type": "number", "description": "Number of results per page" }
+      ]
+    },
+    {
+      "name": "create-a-comment",
+      "description": "Create a comment on a page or discussion.",
+      "parameters": []
+    }
+  ]
+}

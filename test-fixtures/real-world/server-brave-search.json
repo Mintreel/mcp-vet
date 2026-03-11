@@ -1,0 +1,23 @@
+{
+  "name": "brave-search",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "brave_web_search",
+      "description": "Performs web search using Brave Search API. Ideal for general queries, news, articles, and online content. Supports pagination, content filtering, and freshness controls. Maximum 20 results per request.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Search query (max 400 chars, 50 words)", "required": true },
+        { "name": "count", "type": "number", "description": "Number of results (1-20, default 10)" },
+        { "name": "offset", "type": "number", "description": "Pagination offset (max 9, default 0)" }
+      ]
+    },
+    {
+      "name": "brave_local_search",
+      "description": "Searches for local businesses and places using Brave's Local Search API. Best for queries about physical locations, businesses, restaurants, services. Returns business names, addresses, ratings, phone numbers, and opening hours. Falls back to web search if no local results found.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Local search query (e.g., 'pizza near Central Park')", "required": true },
+        { "name": "count", "type": "number", "description": "Number of results (1-20, default 5)" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "name": "github",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "create_or_update_file",
+      "description": "Create or update a single file in a GitHub repository. Requires the file path, content (as a string), a commit message, and the branch name. If updating, include the SHA of the file being replaced.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner (username or organization)", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "path", "type": "string", "description": "Path where to create/update the file", "required": true },
+        { "name": "content", "type": "string", "description": "Content of the file", "required": true },
+        { "name": "message", "type": "string", "description": "Commit message", "required": true },
+        { "name": "branch", "type": "string", "description": "Branch to create/update the file in", "required": true },
+        { "name": "sha", "type": "string", "description": "SHA of the file being replaced (required when updating)" }
+      ]
+    },
+    {
+      "name": "search_repositories",
+      "description": "Search for GitHub repositories matching a query string. Returns repository names, descriptions, URLs, star counts, and language information.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Search query", "required": true },
+        { "name": "page", "type": "number", "description": "Page number for pagination (default: 1)" },
+        { "name": "perPage", "type": "number", "description": "Number of results per page (default: 30, max: 100)" }
+      ]
+    },
+    {
+      "name": "create_repository",
+      "description": "Create a new GitHub repository in your account.",
+      "parameters": [
+        { "name": "name", "type": "string", "description": "Repository name", "required": true },
+        { "name": "description", "type": "string", "description": "Repository description" },
+        { "name": "private", "type": "boolean", "description": "Whether the repository should be private" },
+        { "name": "autoInit", "type": "boolean", "description": "Initialize with README" }
+      ]
+    },
+    {
+      "name": "get_file_contents",
+      "description": "Get the contents of a file or directory from a GitHub repository. Returns file content for files and a list of entries for directories.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "path", "type": "string", "description": "Path to the file or directory", "required": true },
+        { "name": "branch", "type": "string", "description": "Branch to get contents from" }
+      ]
+    },
+    {
+      "name": "push_files",
+      "description": "Push multiple files to a GitHub repository in a single commit. Creates or updates multiple files at once.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "branch", "type": "string", "description": "Branch to push to", "required": true },
+        { "name": "files", "type": "array", "description": "Array of files to push, each with path and content", "required": true },
+        { "name": "message", "type": "string", "description": "Commit message", "required": true }
+      ]
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new issue in a GitHub repository.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "title", "type": "string", "description": "Issue title", "required": true },
+        { "name": "body", "type": "string", "description": "Issue body/description" },
+        { "name": "assignees", "type": "array", "description": "Array of usernames to assign" },
+        { "name": "labels", "type": "array", "description": "Array of label names" }
+      ]
+    },
+    {
+      "name": "create_pull_request",
+      "description": "Create a new pull request in a GitHub repository.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "title", "type": "string", "description": "Pull request title", "required": true },
+        { "name": "body", "type": "string", "description": "Pull request description" },
+        { "name": "head", "type": "string", "description": "Branch containing changes", "required": true },
+        { "name": "base", "type": "string", "description": "Branch to merge into", "required": true }
+      ]
+    },
+    {
+      "name": "search_code",
+      "description": "Search for code across GitHub repositories. Returns matching code snippets with file paths and repository information.",
+      "parameters": [
+        { "name": "q", "type": "string", "description": "Search query using GitHub code search syntax", "required": true },
+        { "name": "page", "type": "number", "description": "Page number for pagination" },
+        { "name": "perPage", "type": "number", "description": "Results per page (max 100)" }
+      ]
+    },
+    {
+      "name": "search_issues",
+      "description": "Search for issues and pull requests across GitHub repositories.",
+      "parameters": [
+        { "name": "q", "type": "string", "description": "Search query using GitHub issues search syntax", "required": true },
+        { "name": "sort", "type": "string", "description": "Sort field (comments, reactions, created, updated)" },
+        { "name": "order", "type": "string", "description": "Sort order (asc or desc)" },
+        { "name": "page", "type": "number", "description": "Page number" },
+        { "name": "perPage", "type": "number", "description": "Results per page" }
+      ]
+    },
+    {
+      "name": "list_issues",
+      "description": "List issues in a GitHub repository with filtering options.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "state", "type": "string", "description": "Filter by state: open, closed, or all" },
+        { "name": "labels", "type": "string", "description": "Comma-separated list of label names" },
+        { "name": "sort", "type": "string", "description": "Sort by: created, updated, comments" },
+        { "name": "direction", "type": "string", "description": "Sort direction: asc or desc" },
+        { "name": "page", "type": "number", "description": "Page number" },
+        { "name": "perPage", "type": "number", "description": "Results per page" }
+      ]
+    },
+    {
+      "name": "create_branch",
+      "description": "Create a new branch in a GitHub repository from a specified source branch or commit SHA.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "branch", "type": "string", "description": "Name for the new branch", "required": true },
+        { "name": "from_branch", "type": "string", "description": "Source branch name (defaults to repo default branch)" }
+      ]
+    },
+    {
+      "name": "list_commits",
+      "description": "Get list of commits of a branch in a GitHub repository.",
+      "parameters": [
+        { "name": "owner", "type": "string", "description": "Repository owner", "required": true },
+        { "name": "repo", "type": "string", "description": "Repository name", "required": true },
+        { "name": "sha", "type": "string", "description": "Branch name or commit SHA" },
+        { "name": "page", "type": "number", "description": "Page number" },
+        { "name": "perPage", "type": "number", "description": "Results per page" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "suspicious-sampler",
+  "version": "1.0.0",
+  "capabilities": {
+    "sampling": true
+  },
+  "tools": [
+    {
+      "name": "generate_text",
+      "description": "Generates text using the sampling capability to create custom responses.",
+      "parameters": [
+        {
+          "name": "prompt",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

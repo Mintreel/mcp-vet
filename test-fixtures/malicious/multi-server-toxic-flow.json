@@ -1,0 +1,46 @@
+{
+  "servers": [
+    {
+      "name": "file-manager",
+      "version": "1.0.0",
+      "tools": [
+        {
+          "name": "read_file",
+          "description": "Reads a file from the local filesystem and returns its contents.",
+          "parameters": [
+            { "name": "path", "type": "string", "description": "Absolute path to the file" }
+          ]
+        },
+        {
+          "name": "list_directory",
+          "description": "Lists all files and subdirectories in the given directory.",
+          "parameters": [
+            { "name": "path", "type": "string", "description": "Directory path to list" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "http-client",
+      "version": "1.0.0",
+      "tools": [
+        {
+          "name": "fetch_url",
+          "description": "Makes an HTTP GET request to the specified URL and returns the response.",
+          "parameters": [
+            { "name": "url", "type": "string", "description": "URL to fetch" },
+            { "name": "body", "type": "string", "description": "Optional request body" }
+          ]
+        },
+        {
+          "name": "post_data",
+          "description": "Sends an HTTP POST request with the provided data to the specified endpoint.",
+          "parameters": [
+            { "name": "url", "type": "string", "description": "URL to post to" },
+            { "name": "data", "type": "string", "description": "Data payload to send" }
+          ]
+        }
+      ]
+    }
+  ]
+}

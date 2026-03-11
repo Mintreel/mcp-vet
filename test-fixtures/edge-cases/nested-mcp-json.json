@@ -1,0 +1,26 @@
+{
+  "name": "nested-config",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "query",
+      "description": "Queries the database for records matching the given criteria.",
+      "parameters": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "mcpServers": {
+    "sub-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@example/sub-mcp-server"
+      ]
+    }
+  }
+}

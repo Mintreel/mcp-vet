@@ -1,0 +1,216 @@
+{
+  "name": "playwright",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "browser_close",
+      "description": "Close the page",
+      "parameters": []
+    },
+    {
+      "name": "browser_resize",
+      "description": "Resize the browser window",
+      "parameters": [
+        { "name": "width", "type": "number", "description": "Width of browser window", "required": true },
+        { "name": "height", "type": "number", "description": "Height of browser window", "required": true }
+      ]
+    },
+    {
+      "name": "browser_navigate",
+      "description": "Navigate to a URL",
+      "parameters": [
+        { "name": "url", "type": "string", "description": "URL to navigate to", "required": true }
+      ]
+    },
+    {
+      "name": "browser_navigate_back",
+      "description": "Go back to previous page in history",
+      "parameters": []
+    },
+    {
+      "name": "browser_navigate_forward",
+      "description": "Go forward to next page in history",
+      "parameters": []
+    },
+    {
+      "name": "browser_reload",
+      "description": "Reload current page",
+      "parameters": []
+    },
+    {
+      "name": "browser_take_screenshot",
+      "description": "Take screenshot of current page. Use browser_snapshot for actions.",
+      "parameters": [
+        { "name": "type", "type": "string", "description": "Image format: png or jpeg (default png)" },
+        { "name": "filename", "type": "string", "description": "File name to save screenshot" },
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference" },
+        { "name": "fullPage", "type": "boolean", "description": "Screenshot of full scrollable page" }
+      ]
+    },
+    {
+      "name": "browser_snapshot",
+      "description": "Capture accessibility snapshot of current page",
+      "parameters": [
+        { "name": "filename", "type": "string", "description": "Save snapshot to markdown file" }
+      ]
+    },
+    {
+      "name": "browser_click",
+      "description": "Perform click on web page",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true },
+        { "name": "doubleClick", "type": "boolean", "description": "Double click instead of single" },
+        { "name": "button", "type": "string", "description": "Button to click: left, right, or middle" },
+        { "name": "modifiers", "type": "array", "description": "Modifier keys: Alt, Control, Meta, Shift" }
+      ]
+    },
+    {
+      "name": "browser_drag",
+      "description": "Perform drag and drop between two elements",
+      "parameters": [
+        { "name": "startElement", "type": "string", "description": "Source element description", "required": true },
+        { "name": "startRef", "type": "string", "description": "Source element reference", "required": true },
+        { "name": "endElement", "type": "string", "description": "Target element description", "required": true },
+        { "name": "endRef", "type": "string", "description": "Target element reference", "required": true }
+      ]
+    },
+    {
+      "name": "browser_hover",
+      "description": "Hover over element on page",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true }
+      ]
+    },
+    {
+      "name": "browser_select_option",
+      "description": "Select option in dropdown",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true },
+        { "name": "values", "type": "array", "description": "Values to select", "required": true }
+      ]
+    },
+    {
+      "name": "browser_check",
+      "description": "Check checkbox or radio button",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true }
+      ]
+    },
+    {
+      "name": "browser_uncheck",
+      "description": "Uncheck checkbox or radio button",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true }
+      ]
+    },
+    {
+      "name": "browser_fill_form",
+      "description": "Fill multiple form fields",
+      "parameters": [
+        { "name": "fields", "type": "array", "description": "Fields to fill with name, type, ref, and value", "required": true }
+      ]
+    },
+    {
+      "name": "browser_press_key",
+      "description": "Press a key on keyboard",
+      "parameters": [
+        { "name": "key", "type": "string", "description": "Key name (e.g., ArrowLeft, a)", "required": true }
+      ]
+    },
+    {
+      "name": "browser_press_sequentially",
+      "description": "Type text key by key on keyboard",
+      "parameters": [
+        { "name": "text", "type": "string", "description": "Text to type", "required": true },
+        { "name": "submit", "type": "boolean", "description": "Whether to submit (press Enter after)" }
+      ]
+    },
+    {
+      "name": "browser_type",
+      "description": "Type text into editable element",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true },
+        { "name": "text", "type": "string", "description": "Text to type", "required": true },
+        { "name": "submit", "type": "boolean", "description": "Whether to submit (press Enter after)" },
+        { "name": "slowly", "type": "boolean", "description": "Type one character at a time" }
+      ]
+    },
+    {
+      "name": "browser_mouse_move_xy",
+      "description": "Move mouse to given position",
+      "parameters": [
+        { "name": "x", "type": "number", "description": "X coordinate", "required": true },
+        { "name": "y", "type": "number", "description": "Y coordinate", "required": true }
+      ]
+    },
+    {
+      "name": "browser_mouse_down",
+      "description": "Press mouse down",
+      "parameters": [
+        { "name": "button", "type": "string", "description": "Button to press: left, right, or middle" }
+      ]
+    },
+    {
+      "name": "browser_mouse_up",
+      "description": "Release mouse button",
+      "parameters": [
+        { "name": "button", "type": "string", "description": "Button to release: left, right, or middle" }
+      ]
+    },
+    {
+      "name": "browser_mouse_wheel",
+      "description": "Scroll mouse wheel",
+      "parameters": [
+        { "name": "deltaX", "type": "number", "description": "Horizontal scroll delta" },
+        { "name": "deltaY", "type": "number", "description": "Vertical scroll delta" }
+      ]
+    },
+    {
+      "name": "browser_mouse_click_xy",
+      "description": "Click left mouse button at given position",
+      "parameters": [
+        { "name": "x", "type": "number", "description": "X coordinate", "required": true },
+        { "name": "y", "type": "number", "description": "Y coordinate", "required": true }
+      ]
+    },
+    {
+      "name": "browser_evaluate",
+      "description": "Evaluate JavaScript expression on page or element",
+      "parameters": [
+        { "name": "function", "type": "string", "description": "JavaScript function code", "required": true },
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference" }
+      ]
+    },
+    {
+      "name": "browser_run_code",
+      "description": "Run Playwright code snippet",
+      "parameters": [
+        { "name": "code", "type": "string", "description": "JavaScript function containing Playwright code", "required": true }
+      ]
+    },
+    {
+      "name": "browser_tabs",
+      "description": "List, create, close, or select browser tab",
+      "parameters": [
+        { "name": "action", "type": "string", "description": "Operation: list, new, close, or select", "required": true },
+        { "name": "index", "type": "number", "description": "Tab index for close/select operations" }
+      ]
+    },
+    {
+      "name": "browser_generate_locator",
+      "description": "Generate locator for element to use in tests",
+      "parameters": [
+        { "name": "element", "type": "string", "description": "Human-readable element description" },
+        { "name": "ref", "type": "string", "description": "Exact target element reference", "required": true }
+      ]
+    }
+  ]
+}

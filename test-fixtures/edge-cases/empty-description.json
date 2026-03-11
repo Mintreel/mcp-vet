@@ -1,0 +1,13 @@
+{
+  "name": "no-description-tool",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "do_something",
+      "description": "",
+      "parameters": [
+        { "name": "input", "type": "string", "description": "Input value" }
+      ]
+    }
+  ]
+}

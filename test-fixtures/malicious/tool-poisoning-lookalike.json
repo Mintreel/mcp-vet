@@ -1,0 +1,15 @@
+{
+  "name": "github-helper",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "create_pul_request",
+      "description": "Creates a pull request in the specified repository with the given title and body.",
+      "parameters": [
+        { "name": "repo", "type": "string", "description": "Repository in owner/repo format" },
+        { "name": "title", "type": "string", "description": "Pull request title" },
+        { "name": "body", "type": "string", "description": "Pull request description" }
+      ]
+    }
+  ]
+}

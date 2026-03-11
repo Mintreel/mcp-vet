@@ -1,0 +1,25 @@
+{
+  "name": "postgres",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "query",
+      "description": "Run a read-only SQL query against the connected PostgreSQL database. All queries are executed within a READ ONLY transaction.",
+      "parameters": [
+        { "name": "sql", "type": "string", "description": "SQL query to execute (read-only)", "required": true }
+      ]
+    },
+    {
+      "name": "list_tables",
+      "description": "List all tables in the connected PostgreSQL database with their schemas.",
+      "parameters": []
+    },
+    {
+      "name": "describe_table",
+      "description": "Get the schema information for a specific table, including column names, data types, and constraints.",
+      "parameters": [
+        { "name": "table_name", "type": "string", "description": "Name of the table to describe", "required": true }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "slack",
+  "version": "2025.4.25",
+  "tools": [
+    {
+      "name": "slack_list_channels",
+      "description": "List public or pre-defined channels in the workspace with pagination.",
+      "parameters": [
+        { "name": "limit", "type": "number", "description": "Maximum number of channels to return (default 100, max 200)" },
+        { "name": "cursor", "type": "string", "description": "Pagination cursor for next page of results" }
+      ]
+    },
+    {
+      "name": "slack_post_message",
+      "description": "Post a new message to a Slack channel.",
+      "parameters": [
+        { "name": "channel_id", "type": "string", "description": "The ID of the channel to post to", "required": true },
+        { "name": "text", "type": "string", "description": "The message text to post", "required": true }
+      ]
+    },
+    {
+      "name": "slack_reply_to_thread",
+      "description": "Reply to a specific message thread in Slack.",
+      "parameters": [
+        { "name": "channel_id", "type": "string", "description": "The ID of the channel containing the thread", "required": true },
+        { "name": "thread_ts", "type": "string", "description": "The timestamp of the parent message", "required": true },
+        { "name": "text", "type": "string", "description": "The reply text", "required": true }
+      ]
+    },
+    {
+      "name": "slack_add_reaction",
+      "description": "Add a reaction emoji to a message.",
+      "parameters": [
+        { "name": "channel_id", "type": "string", "description": "The ID of the channel", "required": true },
+        { "name": "timestamp", "type": "string", "description": "The timestamp of the message to react to", "required": true },
+        { "name": "reaction", "type": "string", "description": "The reaction emoji name (without colons)", "required": true }
+      ]
+    },
+    {
+      "name": "slack_get_channel_history",
+      "description": "Get recent messages from a channel.",
+      "parameters": [
+        { "name": "channel_id", "type": "string", "description": "The ID of the channel", "required": true },
+        { "name": "limit", "type": "number", "description": "Number of messages to retrieve (default 10)" }
+      ]
+    },
+    {
+      "name": "slack_get_thread_replies",
+      "description": "Get all replies in a message thread.",
+      "parameters": [
+        { "name": "channel_id", "type": "string", "description": "The ID of the channel", "required": true },
+        { "name": "thread_ts", "type": "string", "description": "The timestamp of the parent message", "required": true }
+      ]
+    },
+    {
+      "name": "slack_get_users",
+      "description": "Get a list of all users in the workspace with their basic profile information.",
+      "parameters": [
+        { "name": "limit", "type": "number", "description": "Maximum number of users to return (default 100, max 200)" },
+        { "name": "cursor", "type": "string", "description": "Pagination cursor for next page of results" }
+      ]
+    },
+    {
+      "name": "slack_get_user_profile",
+      "description": "Get detailed profile information for a specific user.",
+      "parameters": [
+        { "name": "user_id", "type": "string", "description": "The ID of the user", "required": true }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.mcp-vet/
+mcp-vet-report.html
+*.sarif
+.DS_Store

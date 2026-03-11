@@ -1,0 +1,67 @@
+{
+  "name": "memory",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "create_entities",
+      "description": "Create multiple new entities in the knowledge graph. Each entity has a name, type, and list of observations.",
+      "parameters": [
+        { "name": "entities", "type": "array", "description": "Array of entities to create, each with name, entityType, and observations", "required": true }
+      ]
+    },
+    {
+      "name": "create_relations",
+      "description": "Create multiple new relations between entities in the knowledge graph.",
+      "parameters": [
+        { "name": "relations", "type": "array", "description": "Array of relations with from, to, and relationType", "required": true }
+      ]
+    },
+    {
+      "name": "add_observations",
+      "description": "Add new observations to existing entities in the knowledge graph.",
+      "parameters": [
+        { "name": "observations", "type": "array", "description": "Array of observations with entityName and contents", "required": true }
+      ]
+    },
+    {
+      "name": "delete_entities",
+      "description": "Delete multiple entities and their associated relations from the knowledge graph.",
+      "parameters": [
+        { "name": "entityNames", "type": "array", "description": "Array of entity names to delete", "required": true }
+      ]
+    },
+    {
+      "name": "delete_observations",
+      "description": "Delete specific observations from entities in the knowledge graph.",
+      "parameters": [
+        { "name": "deletions", "type": "array", "description": "Array of deletions with entityName and observations to remove", "required": true }
+      ]
+    },
+    {
+      "name": "delete_relations",
+      "description": "Delete multiple relations from the knowledge graph.",
+      "parameters": [
+        { "name": "relations", "type": "array", "description": "Array of relations to delete with from, to, and relationType", "required": true }
+      ]
+    },
+    {
+      "name": "read_graph",
+      "description": "Read the entire knowledge graph including all entities, relations, and observations.",
+      "parameters": []
+    },
+    {
+      "name": "search_nodes",
+      "description": "Search for nodes in the knowledge graph by name or observation content.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Search query to match against entity names and observations", "required": true }
+      ]
+    },
+    {
+      "name": "open_nodes",
+      "description": "Open specific nodes in the knowledge graph by their names.",
+      "parameters": [
+        { "name": "names", "type": "array", "description": "Array of entity names to retrieve", "required": true }
+      ]
+    }
+  ]
+}

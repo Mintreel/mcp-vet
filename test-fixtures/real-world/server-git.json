@@ -1,0 +1,83 @@
+{
+  "name": "git",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "git_status",
+      "description": "Shows the working tree status including staged, unstaged, and untracked files.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true }
+      ]
+    },
+    {
+      "name": "git_diff_unstaged",
+      "description": "Shows changes in the working directory that have not yet been staged.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true }
+      ]
+    },
+    {
+      "name": "git_diff_staged",
+      "description": "Shows changes that are staged for the next commit.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true }
+      ]
+    },
+    {
+      "name": "git_commit",
+      "description": "Records changes to the repository with a message describing the changes.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true },
+        { "name": "message", "type": "string", "description": "Commit message", "required": true }
+      ]
+    },
+    {
+      "name": "git_add",
+      "description": "Adds file contents to the staging area.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true },
+        { "name": "files", "type": "array", "description": "Array of file paths to stage", "required": true }
+      ]
+    },
+    {
+      "name": "git_reset",
+      "description": "Unstages all staged changes in the repository.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true }
+      ]
+    },
+    {
+      "name": "git_log",
+      "description": "Shows the commit logs with hash, author, date, and message.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true },
+        { "name": "max_count", "type": "number", "description": "Maximum number of commits to show (default: 10)" }
+      ]
+    },
+    {
+      "name": "git_create_branch",
+      "description": "Creates a new branch from an optional base branch.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true },
+        { "name": "branch_name", "type": "string", "description": "Name of the new branch", "required": true },
+        { "name": "base_branch", "type": "string", "description": "Base branch to create from (defaults to current)" }
+      ]
+    },
+    {
+      "name": "git_checkout",
+      "description": "Switches branches in the repository.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true },
+        { "name": "branch_name", "type": "string", "description": "Name of the branch to switch to", "required": true }
+      ]
+    },
+    {
+      "name": "git_show",
+      "description": "Shows the contents of a commit including diff and metadata.",
+      "parameters": [
+        { "name": "repo_path", "type": "string", "description": "Path to the Git repository", "required": true },
+        { "name": "revision", "type": "string", "description": "Revision to show (commit hash, branch, tag)", "required": true }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "name": "filesystem",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "read_file",
+      "description": "Read the complete contents of a file from the file system. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path to the file to read", "required": true }
+      ]
+    },
+    {
+      "name": "read_multiple_files",
+      "description": "Read the contents of multiple files simultaneously. Only works within allowed directories.",
+      "parameters": [
+        { "name": "paths", "type": "array", "description": "Array of file paths to read", "required": true }
+      ]
+    },
+    {
+      "name": "write_file",
+      "description": "Create a new file or completely overwrite an existing file with new content. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path to the file to write", "required": true },
+        { "name": "content", "type": "string", "description": "Content to write to the file", "required": true }
+      ]
+    },
+    {
+      "name": "edit_file",
+      "description": "Make line-based edits to a text file. Each edit replaces exact line sequences with new content. Returns the file content after all edits. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path to the file to edit", "required": true },
+        { "name": "edits", "type": "array", "description": "Array of edit operations with oldText and newText", "required": true },
+        { "name": "dryRun", "type": "boolean", "description": "Preview changes without applying (default: false)" }
+      ]
+    },
+    {
+      "name": "create_directory",
+      "description": "Create a new directory or ensure a directory exists. Can create multiple nested directories in one operation. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path of the directory to create", "required": true }
+      ]
+    },
+    {
+      "name": "list_directory",
+      "description": "Get a detailed listing of all files and directories in a specified path. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path of the directory to list", "required": true }
+      ]
+    },
+    {
+      "name": "directory_tree",
+      "description": "Get a recursive tree view of files and directories. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path of the directory to tree", "required": true },
+        { "name": "depth", "type": "number", "description": "Maximum depth to recurse (default: 3)" }
+      ]
+    },
+    {
+      "name": "move_file",
+      "description": "Move or rename files and directories. Only works within allowed directories.",
+      "parameters": [
+        { "name": "source", "type": "string", "description": "Source path", "required": true },
+        { "name": "destination", "type": "string", "description": "Destination path", "required": true }
+      ]
+    },
+    {
+      "name": "search_files",
+      "description": "Recursively search for files and directories matching a pattern. Searches file names, not content. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Starting directory for search", "required": true },
+        { "name": "pattern", "type": "string", "description": "Search pattern (supports glob patterns)", "required": true },
+        { "name": "excludePatterns", "type": "array", "description": "Patterns to exclude from results" }
+      ]
+    },
+    {
+      "name": "get_file_info",
+      "description": "Retrieve metadata about a file or directory including size, creation time, last modified time, permissions, and type. Only works within allowed directories.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Path to the file or directory", "required": true }
+      ]
+    }
+  ]
+}

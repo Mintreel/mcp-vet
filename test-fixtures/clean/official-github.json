@@ -1,0 +1,35 @@
+{
+  "name": "github",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "create_pull_request",
+      "description": "Creates a new pull request in the specified repository.",
+      "parameters": [
+        { "name": "repo", "type": "string", "description": "Repository in owner/repo format" },
+        { "name": "title", "type": "string", "description": "Pull request title" },
+        { "name": "body", "type": "string", "description": "Pull request description" },
+        { "name": "head", "type": "string", "description": "Branch containing changes" },
+        { "name": "base", "type": "string", "description": "Branch to merge into" }
+      ]
+    },
+    {
+      "name": "list_issues",
+      "description": "Lists issues in the specified repository with optional filters.",
+      "parameters": [
+        { "name": "repo", "type": "string", "description": "Repository in owner/repo format" },
+        { "name": "state", "type": "string", "description": "Filter by state: open, closed, or all" },
+        { "name": "labels", "type": "string", "description": "Comma-separated list of label names" }
+      ]
+    },
+    {
+      "name": "get_file_contents",
+      "description": "Retrieves the contents of a file from a repository at a specific ref.",
+      "parameters": [
+        { "name": "repo", "type": "string", "description": "Repository in owner/repo format" },
+        { "name": "path", "type": "string", "description": "Path to the file in the repository" },
+        { "name": "ref", "type": "string", "description": "Git ref (branch, tag, or commit SHA)" }
+      ]
+    }
+  ]
+}

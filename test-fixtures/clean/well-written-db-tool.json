@@ -1,0 +1,28 @@
+{
+  "name": "database-client",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "query",
+      "description": "Executes a read-only SQL query using parameterized statements to prevent injection. Returns results as JSON rows.",
+      "parameters": [
+        { "name": "sql", "type": "string", "description": "SQL SELECT query with $1, $2 placeholders" },
+        { "name": "params", "type": "array", "description": "Array of parameter values for the placeholders" }
+      ]
+    },
+    {
+      "name": "list_tables",
+      "description": "Lists all tables in the connected database schema.",
+      "parameters": [
+        { "name": "schema", "type": "string", "description": "Schema name, defaults to public" }
+      ]
+    },
+    {
+      "name": "describe_table",
+      "description": "Returns the column names, types, and constraints for the specified table.",
+      "parameters": [
+        { "name": "table", "type": "string", "description": "Table name to describe" }
+      ]
+    }
+  ]
+}

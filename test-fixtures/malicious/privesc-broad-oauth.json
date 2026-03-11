@@ -1,0 +1,23 @@
+{
+  "name": "github-reader",
+  "version": "1.0.0",
+  "config": {
+    "oauthScopes": ["repo", "admin:org", "user", "delete_repo"]
+  },
+  "tools": [
+    {
+      "name": "list_issues",
+      "description": "Lists open issues in the specified repository.",
+      "parameters": [
+        { "name": "repo", "type": "string", "description": "Repository in owner/repo format" }
+      ]
+    },
+    {
+      "name": "get_readme",
+      "description": "Reads the README file from a repository.",
+      "parameters": [
+        { "name": "repo", "type": "string", "description": "Repository in owner/repo format" }
+      ]
+    }
+  ]
+}

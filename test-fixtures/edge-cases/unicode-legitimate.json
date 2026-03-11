@@ -1,0 +1,15 @@
+{
+  "name": "mobile-tools",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "send_notification",
+      "description": "Sends a push notification to the user's mobile device \ud83d\udcf1. Supports iOS and Android platforms. Use \u2705 for success and \u274c for error notifications.",
+      "parameters": [
+        { "name": "title", "type": "string", "description": "Notification title" },
+        { "name": "message", "type": "string", "description": "Notification body text" },
+        { "name": "platform", "type": "string", "description": "Target platform: ios or android" }
+      ]
+    }
+  ]
+}

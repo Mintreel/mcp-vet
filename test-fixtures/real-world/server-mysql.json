@@ -1,0 +1,13 @@
+{
+  "name": "mysql",
+  "version": "2.0.8",
+  "tools": [
+    {
+      "name": "mysql_query",
+      "description": "Run SQL queries against the connected MySQL database. Supports SELECT, INSERT, UPDATE, DELETE, and DDL statements depending on server configuration.",
+      "parameters": [
+        { "name": "sql", "type": "string", "description": "The SQL query to execute", "required": true }
+      ]
+    }
+  ]
+}

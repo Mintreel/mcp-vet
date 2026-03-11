@@ -1,0 +1,22 @@
+{
+  "name": "context7",
+  "version": "2025.1.0",
+  "tools": [
+    {
+      "name": "resolve-library-id",
+      "description": "Resolves package/product name to Context7-compatible library ID. Returns matching libraries with name, description, code snippets count, source reputation, benchmark score, and versions. Must call before 'Query Documentation' unless user provides library ID.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Question or task description used to rank results by relevance", "required": true },
+        { "name": "libraryName", "type": "string", "description": "Library name to search for", "required": true }
+      ]
+    },
+    {
+      "name": "query-docs",
+      "description": "Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework. Must call 'Resolve Context7 Library ID' first unless user explicitly provides library ID.",
+      "parameters": [
+        { "name": "libraryId", "type": "string", "description": "Context7-compatible library ID (e.g., '/mongodb/docs', '/vercel/next.js')", "required": true },
+        { "name": "query", "type": "string", "description": "Question or task description", "required": true }
+      ]
+    }
+  ]
+}
