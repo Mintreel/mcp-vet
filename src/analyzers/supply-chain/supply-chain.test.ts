@@ -10,7 +10,6 @@ import {
   expectFinding,
   expectNoFinding,
 } from '../../../test/helpers.js';
-import type { ServerDefinition } from '../../types.js';
 
 describe('SU-001: Known CVE Check', () => {
   const originalFetch = globalThis.fetch;

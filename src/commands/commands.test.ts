@@ -20,11 +20,6 @@ function snapshotPathFor(filePath: string): string {
   );
 }
 
-const SNAPSHOT_DIR = join(
-  process.env.HOME || process.env.USERPROFILE || '.',
-  '.mcp-vet',
-  'snapshots',
-);
 const SNAPSHOT_PATH = snapshotPathFor(FIXTURE_PATH);
 
 // ────────────────────────────────────────────────────────────────────────────

@@ -5,7 +5,7 @@ import type {
   Finding,
   ServerDefinition,
 } from './types.js';
-import { loadServerFromFile, loadServersFromFile } from './loader/file-loader.js';
+import { loadServersFromFile } from './loader/file-loader.js';
 import { discoverConfigs, mergeConfigs } from './loader/config-discovery.js';
 import {
   mcpEntryToServerDefinition,

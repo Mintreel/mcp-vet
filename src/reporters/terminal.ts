@@ -48,10 +48,7 @@ function scoreBox(label: string, score: number, grade: string, autoFailReasons?:
   lines.push(dim(`╔${'═'.repeat(inner)}╗`));
   lines.push(dim('║') + ' '.repeat(inner) + dim('║'));
 
-  const scoreStr = `     ${label}: ${score}/100`;
   const gradeStr = `Grade: ${gradeColor}${BOLD}${grade}${RESET}`;
-  // Build the content line
-  const contentRaw = `${scoreStr}       ${gradeStr}`;
   // We pad based on visible chars. Approximate: just pad the right side.
   const visibleLen = `     ${label}: ${score}/100       Grade: ${grade}`.length;
   const pad = inner - visibleLen;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateScore, checkAutoFail } from './score-calculator.js';
+import { calculateScore } from './score-calculator.js';
 import type { Finding } from '../types.js';
 
 function makeFinding(overrides: Partial<Finding> = {}): Finding {

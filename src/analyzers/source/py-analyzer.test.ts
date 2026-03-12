@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { analyzePythonFile } from './py-analyzer.js';
 import { join } from 'node:path';
-import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 
 const FIXTURES = join(process.cwd(), 'test-fixtures');

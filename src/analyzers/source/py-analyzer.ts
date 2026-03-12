@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import type { Finding } from '../../types.js';
 import { PY_EXEC_SINKS, PY_FETCH_SINKS, PY_FILE_SINKS, PY_QUERY_SINKS } from './sink-functions.js';
 import { getPythonParser, parsePython, type SyntaxNode } from './py-tree-sitter.js';
-import { tracePyNode, type PyTaintResult } from './py-taint-tracer.js';
+import { tracePyNode } from './py-taint-tracer.js';
 
 /**
  * Extract the dotted function name from a call node's function child.
