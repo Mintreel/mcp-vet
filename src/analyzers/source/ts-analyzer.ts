@@ -1,11 +1,65 @@
 import { Project, SyntaxKind, type SourceFile, type CallExpression } from 'ts-morph';
+import { statSync } from 'node:fs';
 import type { Finding } from '../../types.js';
-import { traceNode, type TaintResult } from './taint-tracer.js';
+import { traceNode } from './taint-tracer.js';
 import { EXEC_SINKS, FETCH_SINKS, FILE_SINKS, QUERY_SINKS } from './sink-functions.js';
 
 function getCallName(call: CallExpression): string {
   const expr = call.getExpression();
   return expr.getText();
+}
+
+/**
+ * Known bundler eval patterns that are safe — they're tricks used by
+ * Webpack/Rollup/esbuild to call require() at runtime without the bundler
+ * statically analyzing the call and trying to inline the dependency.
+ *
+ * e.g. eval("quire".replace(/^\//, "re"))  →  require()
+ *      eval(["req","uire"].join(""))        →  require()
+ */
+const BUNDLER_EVAL_PATTERNS = [
+  // eval("quire".replace(..., "re"))  — esbuild / tsup pattern
+  /eval\(\s*["']quire["']\.replace\(/,
+  // eval([...].join(""))  — webpack join pattern
+  /eval\(\s*\[.*\]\.join\(["']["']\)\)/,
+  // eval("re"+"quire")  — string concat pattern
+  /eval\(\s*["']re["']\s*\+\s*["']quire["']\)/,
+  // eval(atob(...))  — only safe if it's a module loader idiom
+  // NOTE: atob eval is NOT whitelisted here — it remains flagged as PI-006 handles it
+];
+
+function isBundlerEvalCall(call: CallExpression): boolean {
+  const callText = call.getText();
+  return BUNDLER_EVAL_PATTERNS.some((p) => p.test(callText));
+}
+
+/**
+ * Heuristic: detect minified/bundled single-file output.
+ * Bundled files have very few lines but enormous line lengths.
+ * Real source files rarely have lines > 500 chars.
+ */
+function isBundledFile(sourceFile: SourceFile): boolean {
+  const filePath = sourceFile.getFilePath();
+  const lineCount = sourceFile.getEndLineNumber();
+
+  // If the file has fewer than 200 lines but is larger than 50 KB,
+  // it's almost certainly a minified/bundled file.
+  try {
+    const bytes = statSync(filePath).size;
+    const avgBytesPerLine = bytes / Math.max(lineCount, 1);
+    // > 500 bytes/line is a strong signal of bundled/minified code
+    if (avgBytesPerLine > 500) return true;
+  } catch {
+    // ignore stat errors
+  }
+
+  // Also flag files named index.js / bundle.js that are very long
+  const base = filePath.split('/').pop() ?? '';
+  if ((base === 'index.js' || base.includes('bundle') || base.includes('vendor')) && lineCount > 5000) {
+    return true;
+  }
+
+  return false;
 }
 
 // Generic method names that should NOT match via suffix alone
@@ -39,6 +93,11 @@ function checkCallForSC001(
 
   if (!matchesSink(callName, EXEC_SINKS)) return null;
 
+  // Skip known-safe bundler eval idioms (e.g. eval("quire".replace(/^/, "re")))
+  // These are tricks used by Webpack/Rollup/esbuild/tsup to call require() at
+  // runtime without bundlers statically analyzing the import.
+  if (callName === 'eval' && isBundlerEvalCall(call)) return null;
+
   const args = call.getArguments();
   if (args.length === 0) return null;
 
@@ -46,6 +105,10 @@ function checkCallForSC001(
   const result = traceNode(firstArg, sourceFile);
 
   if (result === 'SAFE') return null;
+
+  // In bundled files, eval() false-positives are common from embedded deps.
+  // Only flag if taint is confirmed (not just UNKNOWN).
+  if (callName === 'eval' && isBundledFile(sourceFile) && result !== 'TAINTED') return null;
 
   return {
     id: 'SC-001',
@@ -172,17 +235,41 @@ function checkCallForSC003(
     }
   }
 
+  // TAINTED — confirmed user-controlled input, report HIGH
+  if (result === 'TAINTED') {
+    return {
+      id: 'SC-003',
+      vector: 'IMPLEMENTATION_VULN',
+      severity: 'HIGH',
+      title: 'Path Traversal',
+      description: `User-controlled path passed to ${callName}() without containment validation`,
+      toolName: sourceFile.getBaseName(),
+      evidence: `${callName}(${pathArg.getText().substring(0, 80)}) at line ${call.getStartLineNumber()}`,
+      recommendation:
+        'Use path.resolve() + startsWith() to ensure paths stay within allowed directories.',
+      confidence: 0.75,
+    };
+  }
+
+  // UNKNOWN — could not fully trace the path; downgrade to MEDIUM/low-confidence
+  // so internal helper patterns don't generate HIGH findings.
+  // Suppress entirely if the variable name looks like an internal config/cache path.
+  // Two-part naming requirement: safe prefix + path-like suffix prevents suppressing
+  // dangerous generics like `path` or `file` while catching `fullPath`, `configFile`, etc.
+  const INTERNAL_PATH_PREFIXES = /^(cache|cached|config|full|resolved|base|dir|root|start|pkg|dist|bundle|module|template|asset|static|vendor|lib|file)(Path|File|Dir|Folder|Name)/i;
+  if (INTERNAL_PATH_PREFIXES.test(pathArgText)) return null;
+
   return {
     id: 'SC-003',
     vector: 'IMPLEMENTATION_VULN',
-    severity: 'HIGH',
-    title: 'Path Traversal',
-    description: `User-controlled path passed to ${callName}() without containment validation`,
+    severity: 'MEDIUM',
+    title: 'Path Traversal (Unverified)',
+    description: `Path argument to ${callName}() could not be fully traced — verify it is not user-controlled`,
     toolName: sourceFile.getBaseName(),
     evidence: `${callName}(${pathArg.getText().substring(0, 80)}) at line ${call.getStartLineNumber()}`,
     recommendation:
-      'Use path.resolve() + startsWith() to ensure paths stay within allowed directories.',
-    confidence: result === 'TAINTED' ? 0.75 : 0.5,
+      'Ensure paths are validated with path.resolve() + startsWith() against an allowed directory.',
+    confidence: 0.35,
   };
 }
 
@@ -280,6 +367,11 @@ export function analyzeTypeScriptFile(filePath: string): Finding[] {
     return [];
   }
 
+  // For bundled files, only report high-confidence confirmed-taint findings
+  // to avoid flooding output with false positives from embedded third-party deps.
+  const bundled = isBundledFile(sourceFile);
+  const MIN_BUNDLED_CONFIDENCE = 0.8;
+
   const rawFindings: Finding[] = [];
   const calls = sourceFile.getDescendantsOfKind(SyntaxKind.CallExpression);
 
@@ -297,8 +389,16 @@ export function analyzeTypeScriptFile(filePath: string): Finding[] {
     if (sc004) rawFindings.push(sc004);
   }
 
-  // Deduplicate: consolidate findings with same rule ID per file
-  return deduplicateFindings(rawFindings);
+  const deduplicated = deduplicateFindings(rawFindings);
+
+  // In bundled files, suppress findings that don't meet the higher confidence bar.
+  // SC-001 (eval bundler idiom) is already filtered above; this handles SC-002/SC-003
+  // that originate from embedded third-party library code.
+  if (bundled) {
+    return deduplicated.filter((f) => (f.confidence ?? 0) >= MIN_BUNDLED_CONFIDENCE);
+  }
+
+  return deduplicated;
 }
 
 function deduplicateFindings(findings: Finding[]): Finding[] {

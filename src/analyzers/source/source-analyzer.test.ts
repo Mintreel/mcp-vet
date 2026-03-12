@@ -205,6 +205,48 @@ describe('SC-003: Path Traversal', () => {
       unlinkSync(tmpFile);
     }
   });
+
+  it('reports SC-003 as MEDIUM (not HIGH) when path comes from internal helper (UNKNOWN taint)', () => {
+    const tmpFile = join(os.tmpdir(), `sc003-unknown-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      function getCachePath(version: string): string {
+        return '/cache/' + version + '.json';
+      }
+      function readCache(version: string) {
+        const p = getCachePath(version);
+        return fs.readFileSync(p, 'utf8');
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      if (sc003.length > 0) {
+        expect(['LOW', 'MEDIUM']).toContain(sc003[0].severity);
+        expect(sc003[0].confidence ?? 1).toBeLessThan(0.5);
+      }
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('still flags SC-003 as HIGH when path is a direct function parameter', () => {
+    const tmpFile = join(os.tmpdir(), `sc003-param-high-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      function readIt(args: { filePath: string }) {
+        return fs.readFileSync(args.filePath, 'utf8');
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBeGreaterThanOrEqual(1);
+      expect(sc003[0].severity).toBe('HIGH');
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
 });
 
 describe('SC-004: SQL Injection', () => {
