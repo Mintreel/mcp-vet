@@ -1,6 +1,7 @@
-import { readdirSync, existsSync, readFileSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { homedir } from 'node:os';
+import { homedir, tmpdir } from 'node:os';
+import { execSync } from 'node:child_process';
 import type { McpServerEntry, ServerDefinition } from '../types.js';
 import { connectAndListTools, type ConnectionErrorCategory } from './live-connector.js';
 
@@ -98,6 +99,50 @@ export function resolveSourceDir(packageRoot: string): string {
   }
 
   return packageRoot;
+}
+
+export interface TempInstall {
+  /** Root of the installed package (e.g. /tmp/mcp-vet-xxx/node_modules/@scope/pkg) */
+  packageRoot: string;
+  /** The temp directory to clean up */
+  tempDir: string;
+  /** Call when done to remove the temp directory */
+  cleanup: () => void;
+}
+
+/**
+ * Install an npm package into a temporary directory and return paths.
+ * This ensures source code is available for analysis without requiring
+ * the user to run npm install manually.
+ */
+export function installPackageToTemp(packageName: string): TempInstall {
+  const tempDir = mkdtempSync(join(tmpdir(), 'mcp-vet-'));
+
+  try {
+    execSync(`npm install --ignore-scripts --no-audit --no-fund ${packageName}`, {
+      cwd: tempDir,
+      stdio: 'pipe',
+      timeout: 60_000,
+    });
+  } catch (err) {
+    // Clean up on install failure
+    rmSync(tempDir, { recursive: true, force: true });
+    throw new Error(
+      `Failed to install "${packageName}": ${err instanceof Error ? err.message : err}`,
+    );
+  }
+
+  const packageRoot = join(tempDir, 'node_modules', packageName);
+  if (!existsSync(packageRoot)) {
+    rmSync(tempDir, { recursive: true, force: true });
+    throw new Error(`Package "${packageName}" installed but not found in node_modules`);
+  }
+
+  return {
+    packageRoot,
+    tempDir,
+    cleanup: () => rmSync(tempDir, { recursive: true, force: true }),
+  };
 }
 
 export function resolvePackageName(args: string[]): string | null {

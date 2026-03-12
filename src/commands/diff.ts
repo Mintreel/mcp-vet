@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
-import { loadServerFromFile } from '../loader/file-loader.js';
+import { loadServersFromFile } from '../loader/file-loader.js';
 import type { Finding } from '../types.js';
 
 const SNAPSHOT_DIR = join(
@@ -20,19 +20,27 @@ function hashDescription(desc: string): string {
   return createHash('sha256').update(desc).digest('hex').substring(0, 16);
 }
 
-function getSnapshotPath(serverName: string): string {
-  return join(SNAPSHOT_DIR, `${serverName}.json`);
+/**
+ * Key snapshots by the resolved absolute file path (not server name).
+ * This prevents a malicious server with the same name as a known-safe
+ * server from overwriting its snapshot.
+ */
+function getSnapshotPath(targetFilePath: string): string {
+  const absPath = resolve(targetFilePath);
+  const pathHash = createHash('sha256').update(absPath).digest('hex').substring(0, 16);
+  return join(SNAPSHOT_DIR, `${pathHash}.json`);
 }
 
 export function runDiff(targetPath: string): { findings: Finding[]; isFirstRun: boolean } {
-  const server = loadServerFromFile(targetPath);
+  const servers = loadServersFromFile(targetPath);
+  const server = servers[0]; // diff operates on the primary/first server
   const findings: Finding[] = [];
 
   if (!existsSync(SNAPSHOT_DIR)) {
     mkdirSync(SNAPSHOT_DIR, { recursive: true });
   }
 
-  const snapshotPath = getSnapshotPath(server.name);
+  const snapshotPath = getSnapshotPath(targetPath);
   const currentTools: Record<string, string> = {};
   for (const tool of server.tools) {
     currentTools[tool.name] = hashDescription(tool.description);

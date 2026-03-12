@@ -1,20 +1,31 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { existsSync, unlinkSync, rmSync } from 'node:fs';
+import { existsSync, unlinkSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 import { listRules } from './list-rules.js';
 import { runDiff } from './diff.js';
 import { showGraph } from './graph.js';
 
 const FIXTURE_PATH = resolve(__dirname, '../../test-fixtures/clean/simple-calculator.json');
 
-// The simple-calculator.json fixture has server name "simple-calc",
-// so the snapshot will be at ~/.mcp-vet/snapshots/simple-calc.json
+// Compute snapshot path the same way diff.ts does: hash of the absolute file path
+function snapshotPathFor(filePath: string): string {
+  const absPath = resolve(filePath);
+  const pathHash = createHash('sha256').update(absPath).digest('hex').substring(0, 16);
+  return join(
+    process.env.HOME || process.env.USERPROFILE || '.',
+    '.mcp-vet',
+    'snapshots',
+    `${pathHash}.json`,
+  );
+}
+
 const SNAPSHOT_DIR = join(
   process.env.HOME || process.env.USERPROFILE || '.',
   '.mcp-vet',
   'snapshots',
 );
-const SNAPSHOT_PATH = join(SNAPSHOT_DIR, 'simple-calc.json');
+const SNAPSHOT_PATH = snapshotPathFor(FIXTURE_PATH);
 
 // ────────────────────────────────────────────────────────────────────────────
 // list-rules
@@ -23,7 +34,7 @@ describe('listRules', () => {
   let logSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    logSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -166,7 +177,7 @@ describe('runDiff', () => {
       __dirname,
       '../../test-fixtures/malicious/prompt-injection-override.json',
     );
-    const maliciousSnapPath = join(SNAPSHOT_DIR, 'evil-calculator.json');
+    const maliciousSnapPath = snapshotPathFor(maliciousPath);
 
     try {
       // First run creates snapshot
@@ -202,7 +213,7 @@ describe('showGraph', () => {
   let logSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    logSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
   });
 
   afterEach(() => {

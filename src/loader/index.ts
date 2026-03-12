@@ -6,5 +6,6 @@ export {
   resolvePackageName,
   resolvePackageSourcePath,
   resolveSourceDir,
+  installPackageToTemp,
 } from './mcp-config-loader.js';
 export { connectAndListTools, sdkToolsToDefinitions, type ConnectionErrorCategory } from './live-connector.js';

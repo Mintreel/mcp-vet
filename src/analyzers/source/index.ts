@@ -35,10 +35,10 @@ function collectFiles(dirPath: string, extensions: Set<string>, maxDepth = 5): s
   return files;
 }
 
-export function runSourceAnalysis(
+export async function runSourceAnalysis(
   sourcePath: string,
   ignore: string[] = [],
-): Finding[] {
+): Promise<Finding[]> {
   const findings: Finding[] = [];
   const ignoreSet = new Set(ignore);
 
@@ -52,7 +52,7 @@ export function runSourceAnalysis(
   // Collect Python files
   const pyFiles = collectFiles(sourcePath, PY_EXTENSIONS);
   for (const file of pyFiles) {
-    const fileFindings = analyzePythonFile(file);
+    const fileFindings = await analyzePythonFile(file);
     findings.push(...fileFindings.filter((f) => !ignoreSet.has(f.id)));
   }
 

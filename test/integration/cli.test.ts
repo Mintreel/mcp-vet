@@ -1,10 +1,23 @@
 import { describe, it, expect } from 'vitest';
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync, unlinkSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const CLI = join(process.cwd(), 'dist/cli.js');
 const FIXTURES = join(process.cwd(), 'test-fixtures');
+
+// Compute snapshot path the same way diff.ts does: hash of the absolute file path
+function snapshotPathFor(filePath: string): string {
+  const absPath = resolve(filePath);
+  const pathHash = createHash('sha256').update(absPath).digest('hex').substring(0, 16);
+  return join(
+    process.env.HOME || process.env.USERPROFILE || '.',
+    '.mcp-vet',
+    'snapshots',
+    `${pathHash}.json`,
+  );
+}
 
 function run(args: string): { stdout: string; exitCode: number } {
   try {
@@ -154,17 +167,13 @@ describe('CLI Integration', () => {
   });
 
   it('diff creates snapshot on first run', () => {
-    const snapshotPath = join(
-      process.env.HOME || process.env.USERPROFILE || '.',
-      '.mcp-vet',
-      'snapshots',
-      'simple-calc.json',
-    );
+    const fixturePath = `${FIXTURES}/clean/simple-calculator.json`;
+    const snapshotPath = snapshotPathFor(fixturePath);
     // Clean up any existing snapshot to ensure first-run behavior
     if (existsSync(snapshotPath)) unlinkSync(snapshotPath);
 
     try {
-      const { stdout, exitCode } = run(`diff ${FIXTURES}/clean/simple-calculator.json`);
+      const { stdout, exitCode } = run(`diff ${fixturePath}`);
       expect(exitCode).toBe(0);
       expect(stdout).toContain('Snapshot created');
       expect(existsSync(snapshotPath)).toBe(true);

@@ -1,12 +1,11 @@
 {
   "name": "mcp-vet",
   "version": "0.1.0",
-  "description": "Open-source MCP security auditor CLI. Scans MCP server definitions for vulnerabilities.",
+  "description": "Open-source security auditor for MCP (Model Context Protocol) servers",
   "type": "module",
   "bin": {
-    "mcp-vet": "dist/cli.js"
+    "mcp-vet": "./dist/cli.js"
   },
-  "main": "dist/index.js",
   "files": [
     "dist"
   ],
@@ -14,24 +13,37 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
     "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:real-world": "vitest run --config vitest.real-world.config.ts",
-    "lint": "eslint src/ test/ --ext .ts && prettier --check 'src/**/*.ts' 'test/**/*.ts'",
-    "lint:fix": "eslint src/ test/ --ext .ts --fix && prettier --write 'src/**/*.ts' 'test/**/*.ts'",
-    "typecheck": "tsc --noEmit"
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src",
+    "format": "prettier --write ."
   },
   "keywords": [
     "mcp",
     "security",
     "audit",
-    "cli",
     "model-context-protocol"
   ],
+  "author": "Mintu Sidhu",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mintreel/mcp-vet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mintreel/mcp-vet/issues"
+  },
+  "homepage": "https://github.com/Mintreel/mcp-vet#readme",
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "commander": "^14.0.3",
+    "tree-sitter-python": "^0.25.0",
+    "ts-morph": "^27.0.2",
+    "web-tree-sitter": "^0.26.6"
   },
   "devDependencies": {
     "@types/node": "^25.4.0",
@@ -43,19 +55,5 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.27.1",
-    "commander": "^14.0.3",
-    "ts-morph": "^27.0.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Mintreel/mcp-vet.git"
-  },
-  "homepage": "https://github.com/Mintreel/mcp-vet#readme",
-  "bugs": {
-    "url": "https://github.com/Mintreel/mcp-vet/issues"
-  },
-  "author": "Mintreel"
+  }
 }

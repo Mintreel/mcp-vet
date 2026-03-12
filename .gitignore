@@ -1,10 +1,2 @@
-node_modules/
-dist/
-coverage/
-*.tsbuildinfo
-.mcp-vet/
-mcp-vet-report.html
-*.sarif
+node_modules
 .DS_Store
-Docs/
-CLAUDE.md

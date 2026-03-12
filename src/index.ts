@@ -1,33 +1,69 @@
-export { runPipeline, runPipelineMulti, runDiscoveryPipeline } from './pipeline.js';
-export { runMetadataAnalysis } from './analyzers/metadata/index.js';
-export { runCrossServerAnalysis } from './analyzers/cross-server/index.js';
-export { runSourceAnalysis } from './analyzers/source/index.js';
-export { runSupplyChainAnalysis } from './analyzers/supply-chain/index.js';
-export { calculateScore } from './scoring/score-calculator.js';
-export { formatTerminalReport, formatMultiServerReport } from './reporters/terminal.js';
-export { formatJsonReport } from './reporters/json.js';
-export { generateHtmlReport } from './reporters/html.js';
-export { generateSarifReport } from './reporters/sarif.js';
-export {
-  discoverConfigs,
-  parseMcpConfig,
-  mergeConfigs,
-} from './loader/config-discovery.js';
-export {
-  mcpEntryToServerDefinition,
-  resolvePackageName,
-} from './loader/mcp-config-loader.js';
-export type {
-  ServerDefinition,
-  ToolDefinition,
-  ToolParameter,
-  Finding,
-  TrustScore,
-  Severity,
-  AttackVector,
-  McpVetConfig,
-  PipelineResult,
-  DiscoveredConfig,
-  McpServerEntry,
-  MultiPipelineResult,
-} from './types.js';
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import { execFile } from "child_process";
+// Create an MCP server
+const server = new McpServer({
+  name: "Demo",
+  version: "1.0.0"
+});
+
+// Add an addition tool
+server.tool("add",
+  { a: z.number(), b: z.number() },
+  async ({ a, b }) => ({
+    content: [{ type: "text", text: String(a + b) }]
+  })
+);
+
+interface ProcessInfo {
+  command: string;
+  pid: string | null;
+}
+
+server.tool("which-app-on-port", { port: z.number() }, async ({ port }) => {
+  const result = await new Promise<ProcessInfo>((resolve, reject) => {
+    execFile('lsof', ['-t', '-i', `tcp:${port}`], (error, pidStdout) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      const pid = pidStdout.trim();
+      execFile('ps', ['-o', 'comm=', '-p', pid], (error, stdout) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve({ command: stdout.trim(), pid });
+      });
+    });
+  });
+
+  const response = {
+    pid: result.pid,
+    command: result.command,
+  };
+
+  return {
+    content: [{ type: "text", text: JSON.stringify(response) }]
+  };
+});
+
+// Add a dynamic greeting resource
+server.resource(
+  "greeting",
+  new ResourceTemplate("greeting://{name}", { list: undefined }),
+  async (uri, { name }) => ({
+    contents: [{
+      uri: uri.href,
+      text: `Hello, ${name}!`
+    }]
+  })
+);
+
+// Start receiving messages on stdin and sending messages on stdout
+const transport = new StdioServerTransport();
+await server.connect(transport);
+
+// output some info when the server is ready
+console.error("MCP Server ready");

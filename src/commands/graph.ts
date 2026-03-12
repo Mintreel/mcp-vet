@@ -1,4 +1,4 @@
-import { loadServerFromFile } from '../loader/file-loader.js';
+import { loadServersFromFile } from '../loader/file-loader.js';
 import { buildCapabilityGraph } from '../analyzers/cross-server/index.js';
 import { runTS003 } from '../analyzers/cross-server/ts-003.js';
 import type { ServerDefinition } from '../types.js';
@@ -11,13 +11,7 @@ const GREEN = '\x1b[32m';
 const YELLOW = '\x1b[33m';
 
 export function showGraph(targetPath: string): void {
-  const primary = loadServerFromFile(targetPath);
-
-  // Check if config has multiple servers
-  const servers: ServerDefinition[] = [primary];
-
-  // If the file has a "servers" array, parse those too
-  // For now we support the basic format
+  const servers: ServerDefinition[] = loadServersFromFile(targetPath);
 
   console.log('');
   console.log(`${BOLD}mcp-vet${RESET} capability graph`);

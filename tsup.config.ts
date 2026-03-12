@@ -9,7 +9,7 @@ export default defineConfig([
     dts: false,
     sourcemap: true,
     splitting: false,
-    external: ['commander', 'chalk', 'ts-morph', '@ts-morph/common', '@modelcontextprotocol/sdk'],
+    external: ['commander', 'chalk', 'ts-morph', '@ts-morph/common', '@modelcontextprotocol/sdk', 'web-tree-sitter'],
   },
   {
     entry: ['src/index.ts'],
@@ -18,6 +18,6 @@ export default defineConfig([
     dts: true,
     sourcemap: true,
     splitting: false,
-    external: ['commander', 'chalk', 'ts-morph', '@ts-morph/common', '@modelcontextprotocol/sdk'],
+    external: ['commander', 'chalk', 'ts-morph', '@ts-morph/common', '@modelcontextprotocol/sdk', 'web-tree-sitter'],
   },
 ]);

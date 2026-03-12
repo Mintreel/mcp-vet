@@ -1,7 +1,13 @@
 import { readFileSync } from 'node:fs';
 import type { ServerDefinition, ToolDefinition, ToolParameter } from '../types.js';
 
-export function loadServerFromFile(filePath: string): ServerDefinition {
+/**
+ * Load one OR more servers from a JSON file.
+ * Supports two formats:
+ *   - Single server:  { "name": "...", "tools": [...] }
+ *   - Multi-server:  { "servers": [ { "name": "...", "tools": [...] }, ... ] }
+ */
+export function loadServersFromFile(filePath: string): ServerDefinition[] {
   let raw: string;
   try {
     raw = readFileSync(filePath, 'utf-8');
@@ -16,7 +22,24 @@ export function loadServerFromFile(filePath: string): ServerDefinition {
     throw new Error(`Invalid JSON in file: ${filePath}`);
   }
 
-  return parseServerDefinition(data, filePath);
+  if (typeof data !== 'object' || data === null) {
+    throw new Error(`Invalid server definition in ${filePath}: expected an object`);
+  }
+
+  const obj = data as Record<string, unknown>;
+
+  // Multi-server format: { "servers": [...] }
+  if (Array.isArray(obj.servers)) {
+    return obj.servers.map((s, i) => parseServerDefinition(s, `${filePath}[${i}]`));
+  }
+
+  // Single-server format
+  return [parseServerDefinition(data, filePath)];
+}
+
+/** Backward-compatible single-server loader. */
+export function loadServerFromFile(filePath: string): ServerDefinition {
+  return loadServersFromFile(filePath)[0];
 }
 
 function parseServerDefinition(data: unknown, source: string): ServerDefinition {

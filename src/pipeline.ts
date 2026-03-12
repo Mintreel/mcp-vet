@@ -5,7 +5,7 @@ import type {
   Finding,
   ServerDefinition,
 } from './types.js';
-import { loadServerFromFile } from './loader/file-loader.js';
+import { loadServerFromFile, loadServersFromFile } from './loader/file-loader.js';
 import { discoverConfigs, mergeConfigs } from './loader/config-discovery.js';
 import {
   mcpEntryToServerDefinition,
@@ -21,11 +21,8 @@ export async function runPipeline(
   targetPath: string,
   options: PipelineOptions = {},
 ): Promise<PipelineResult> {
-  const server = loadServerFromFile(targetPath);
+  const allServers = loadServersFromFile(targetPath);
   const findings: Finding[] = [];
-
-  // Check if the loaded file contains multiple servers (multi-server config)
-  const allServers = loadMultiServerConfig(server, targetPath);
 
   // Run metadata analysis for each server
   for (const s of allServers) {
@@ -43,40 +40,34 @@ export async function runPipeline(
   if (options.sourceAnalysis !== false) {
     for (const s of allServers) {
       if (s.sourcePath) {
-        const sourceFindings = runSourceAnalysis(s.sourcePath, options.ignore);
+        const sourceFindings = await runSourceAnalysis(s.sourcePath, options.ignore);
         findings.push(...sourceFindings);
       }
     }
   }
 
-  // Run supply chain analysis
-  const supplyChainFindings = await runSupplyChainAnalysis(server, {
+  // Run supply chain analysis (use first/primary server for package info)
+  const primary = allServers[0];
+  const supplyChainFindings = await runSupplyChainAnalysis(primary, {
     cveCheck: options.cveCheck,
     ignore: options.ignore,
   });
   findings.push(...supplyChainFindings);
 
-  // Calculate score
   const score = calculateScore(findings);
 
+  // Report under the primary server name, or a combined name for multi-server
+  const serverName = allServers.length === 1
+    ? primary.name
+    : allServers.map((s) => s.name).join(' + ');
+
   return {
-    serverName: server.name,
-    serverVersion: server.version,
+    serverName,
+    serverVersion: primary.version,
     findings,
     score,
     scanTimestamp: new Date().toISOString(),
   };
-}
-
-function loadMultiServerConfig(
-  primary: ServerDefinition,
-  _targetPath: string,
-): ServerDefinition[] {
-  // If the loaded file has a "servers" array (multi-server config format),
-  // try to parse it. Otherwise return single server.
-  // For now, we handle the case where the JSON directly has multiple servers.
-  // Multi-server configs will have a "servers" key at the top level.
-  return [primary];
 }
 
 export async function runPipelineMulti(
@@ -98,7 +89,7 @@ export async function runPipelineMulti(
   if (options.sourceAnalysis !== false) {
     for (const s of servers) {
       if (s.sourcePath) {
-        const sourceFindings = runSourceAnalysis(s.sourcePath, options.ignore);
+        const sourceFindings = await runSourceAnalysis(s.sourcePath, options.ignore);
         findings.push(...sourceFindings);
       }
     }

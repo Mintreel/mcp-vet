@@ -1,13 +1,30 @@
 #!/usr/bin/env node
-import { existsSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { Command } from 'commander';
 import type { PipelineResult, ServerDefinition } from './types.js';
 import { runPipeline, runPipelineMulti, runDiscoveryPipeline } from './pipeline.js';
-import { mcpEntryToServerDefinitionLive, resolvePackageSourcePath, resolveSourceDir } from './loader/mcp-config-loader.js';
+import { mcpEntryToServerDefinitionLive, resolveSourceDir, installPackageToTemp } from './loader/mcp-config-loader.js';
 import { formatTerminalReport, formatMultiServerReport } from './reporters/terminal.js';
 import { formatJsonReport } from './reporters/json.js';
 import { generateHtmlReport } from './reporters/html.js';
 import { generateSarifReport } from './reporters/sarif.js';
+
+function resolveEntryPoint(packageRoot: string): string {
+  try {
+    const pkgJson = JSON.parse(readFileSync(join(packageRoot, 'package.json'), 'utf-8'));
+    const bin = pkgJson.bin;
+    if (typeof bin === 'string') return join(packageRoot, bin);
+    if (typeof bin === 'object') {
+      const first = Object.values(bin)[0] as string;
+      if (first) return join(packageRoot, first);
+    }
+    if (pkgJson.main) return join(packageRoot, pkgJson.main);
+  } catch {
+    // fall through
+  }
+  return join(packageRoot, 'index.js');
+}
 
 function isPackageName(s: string): boolean {
   // Scoped: @scope/name
@@ -45,37 +62,42 @@ program
           cveCheck: options.cve !== false,
         });
       } else if (isPackageName(target)) {
-        // Treat as MCP server package, connect live
-        const entry = {
-          name: target,
-          command: 'npx',
-          args: ['-y', target],
-        };
-        const server = await mcpEntryToServerDefinitionLive(entry, {
-          timeout: options.timeout,
-        });
+        // Install package to temp directory for source analysis
+        console.error(`Installing ${target}...`);
+        const tempInstall = installPackageToTemp(target);
 
-        // Resolve source path for source code analysis (SC-001 through SC-004)
-        if (options.source !== false && !server.connectionError) {
-          const pkgRoot = resolvePackageSourcePath(target);
-          if (pkgRoot) {
-            server.sourcePath = resolveSourceDir(pkgRoot);
+        try {
+          // Use the installed copy for live connection
+          const entry = {
+            name: target,
+            command: 'node',
+            args: [resolveEntryPoint(tempInstall.packageRoot)],
+          };
+          const server = await mcpEntryToServerDefinitionLive(entry, {
+            timeout: options.timeout,
+          });
+
+          // Source analysis uses the installed source directly
+          if (options.source !== false) {
+            server.sourcePath = resolveSourceDir(tempInstall.packageRoot);
           }
-        }
 
-        const pipelineResult = await runPipelineMulti([server], {
-          sourceAnalysis: options.source !== false,
-          cveCheck: options.cve !== false,
-        });
-        const serverAny = server as ServerDefinition & { connectionErrorCategory?: PipelineResult['connectionErrorCategory']; connectionErrorMessage?: string };
-        result = {
-          ...pipelineResult,
-          toolCount: server.tools.length,
-          connectionStatus: (server.connectionError ? 'failed' : 'connected') as PipelineResult['connectionStatus'],
-          connectionError: server.connectionError,
-          connectionErrorCategory: serverAny.connectionErrorCategory,
-          connectionErrorMessage: serverAny.connectionErrorMessage,
-        };
+          const pipelineResult = await runPipelineMulti([server], {
+            sourceAnalysis: options.source !== false,
+            cveCheck: options.cve !== false,
+          });
+          const serverAny = server as ServerDefinition & { connectionErrorCategory?: PipelineResult['connectionErrorCategory']; connectionErrorMessage?: string };
+          result = {
+            ...pipelineResult,
+            toolCount: server.tools.length,
+            connectionStatus: (server.connectionError ? 'failed' : 'connected') as PipelineResult['connectionStatus'],
+            connectionError: server.connectionError,
+            connectionErrorCategory: serverAny.connectionErrorCategory,
+            connectionErrorMessage: serverAny.connectionErrorMessage,
+          };
+        } finally {
+          tempInstall.cleanup();
+        }
       } else {
         console.error(`Error: "${target}" is not a file or known package`);
         process.exit(2);

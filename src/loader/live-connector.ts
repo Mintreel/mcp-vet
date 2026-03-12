@@ -91,6 +91,7 @@ export async function connectAndListTools(
           env: entry.env
             ? { ...process.env, ...entry.env } as Record<string, string>
             : undefined,
+          stderr: 'pipe',
         });
 
         const client = new Client(
