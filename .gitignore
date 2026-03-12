@@ -6,3 +6,5 @@ coverage/
 mcp-vet-report.html
 *.sarif
 .DS_Store
+Docs/
+CLAUDE.md
