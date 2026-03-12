@@ -31,8 +31,6 @@ export const FILE_SINKS = [
   'fs.readFileSync',
   'fs.writeFile',
   'fs.writeFileSync',
-  'fs.readdir',
-  'fs.readdirSync',
   'fs.unlink',
   'fs.unlinkSync',
   'fs.access',
@@ -41,6 +39,14 @@ export const FILE_SINKS = [
   'readFileSync',
   'writeFile',
   'writeFileSync',
+];
+
+// Directory listing sinks — not SC-003 (no file content exposure)
+export const DIRECTORY_SINKS = [
+  'fs.readdir',
+  'fs.readdirSync',
+  'readdirSync',
+  'readdir',
 ];
 
 export const QUERY_SINKS = [

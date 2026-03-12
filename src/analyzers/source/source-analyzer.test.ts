@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { join } from 'node:path';
+import os from 'node:os';
+import { writeFileSync, unlinkSync } from 'node:fs';
 import { analyzeTypeScriptFile } from './ts-analyzer.js';
 import { analyzePythonFile } from './py-analyzer.js';
 
@@ -20,15 +22,15 @@ describe('SC-001: Command Injection', () => {
     expect(sc001.length).toBe(0);
   });
 
-  it('detects Python f-string in os.system()', () => {
-    const findings = analyzePythonFile(join(FIXTURES, 'source-command-injection/dangerous.py'));
+  it('detects Python f-string in os.system()', async () => {
+    const findings = await analyzePythonFile(join(FIXTURES, 'source-command-injection/dangerous.py'));
     const sc001 = findings.filter((f) => f.id === 'SC-001');
     expect(sc001.length).toBeGreaterThanOrEqual(1);
     expect(sc001[0].severity).toBe('CRITICAL');
   });
 
-  it('does not flag Python subprocess.run with list arguments (safe)', () => {
-    const findings = analyzePythonFile(join(ROOT_FIXTURES, 'source-cmd-injection/safe.py'));
+  it('does not flag Python subprocess.run with list arguments (safe)', async () => {
+    const findings = await analyzePythonFile(join(ROOT_FIXTURES, 'source-cmd-injection/safe.py'));
     const sc001 = findings.filter((f) => f.id === 'SC-001');
     expect(sc001.length).toBe(0);
   });
@@ -69,8 +71,8 @@ describe('SC-002: SSRF', () => {
     expect(sc002.length).toBe(0);
   });
 
-  it('detects Python unvalidated URL in urllib.request.urlopen()', () => {
-    const findings = analyzePythonFile(join(FIXTURES, 'source-ssrf/dangerous.py'));
+  it('detects Python unvalidated URL in urllib.request.urlopen()', async () => {
+    const findings = await analyzePythonFile(join(FIXTURES, 'source-ssrf/dangerous.py'));
     const sc002 = findings.filter((f) => f.id === 'SC-002');
     expect(sc002.length).toBeGreaterThanOrEqual(1);
     expect(sc002[0].severity).toBe('HIGH');
@@ -135,6 +137,23 @@ describe('SC-003: Path Traversal', () => {
     const sc003 = findings.filter((f) => f.id === 'SC-003');
     expect(sc003.length).toBe(0);
   });
+
+  it('does not flag readdirSync with any path as SC-003', () => {
+    const tmpFile = join(os.tmpdir(), `readdirSync-test-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      function list(startPath: string) {
+        return fs.readdirSync(startPath);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
 });
 
 describe('SC-004: SQL Injection', () => {
@@ -147,8 +166,8 @@ describe('SC-004: SQL Injection', () => {
     expect(sc004[0].severity).toBe('HIGH');
   });
 
-  it('detects Python f-string in cursor.execute()', () => {
-    const findings = analyzePythonFile(join(FIXTURES, 'source-sql-injection/dangerous.py'));
+  it('detects Python f-string in cursor.execute()', async () => {
+    const findings = await analyzePythonFile(join(FIXTURES, 'source-sql-injection/dangerous.py'));
     const sc004 = findings.filter((f) => f.id === 'SC-004');
     expect(sc004.length).toBeGreaterThanOrEqual(1);
     expect(sc004[0].severity).toBe('HIGH');
