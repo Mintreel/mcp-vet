@@ -47,9 +47,20 @@ export function traceNode(node: Node, _sourceFile: SourceFile, depth = 0): Taint
     return 'SAFE';
   }
 
-  // Template expressions with interpolation are tainted
+  // Template expressions — inspect each interpolated span.
+  // If ALL spans resolve to SAFE, the whole expression is SAFE.
+  // Only return TAINTED if at least one span is TAINTED or UNKNOWN.
   if (kind === SyntaxKind.TemplateExpression) {
-    return 'TAINTED';
+    const spans = node.getChildrenOfKind(SyntaxKind.TemplateSpan);
+    if (spans.length === 0) return 'SAFE';
+    for (const span of spans) {
+      const expr = span.getChildAtIndex(0);
+      if (!expr) return 'TAINTED';
+      const spanResult = traceNode(expr, _sourceFile, depth + 1);
+      if (spanResult === 'TAINTED') return 'TAINTED';
+      if (spanResult === 'UNKNOWN') return 'TAINTED';
+    }
+    return 'SAFE';
   }
 
   // Binary expression with + (string concat) — check if non-literal parts exist

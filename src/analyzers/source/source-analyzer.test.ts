@@ -93,6 +93,57 @@ describe('SC-002: SSRF', () => {
     const sc002 = findings.filter((f) => f.id === 'SC-002');
     expect(sc002.length).toBe(0);
   });
+
+  it('does not flag fetch with hardcoded-base-URL template literal as SC-002', () => {
+    const tmpFile = join(os.tmpdir(), `sc002-template-safe-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      const API_SERVER = 'https://api.example.com';
+      async function log(id: string) {
+        const fixedPath = '/one/mcp/log';
+        await fetch(\`\${API_SERVER}\${fixedPath}\`);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('still flags fetch with user-controlled path in template literal as SC-002', () => {
+    const tmpFile = join(os.tmpdir(), `sc002-template-tainted-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      const BASE = 'https://api.example.com';
+      async function handler(req: any) {
+        await fetch(\`\${BASE}/\${req.params.path}\`);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBeGreaterThanOrEqual(1);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('still flags fetch(userUrl) function parameter as SC-002', () => {
+    const tmpFile = join(os.tmpdir(), `sc002-param-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      async function handler(userUrl: string) {
+        await fetch(userUrl);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBeGreaterThanOrEqual(1);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
 });
 
 describe('SC-003: Path Traversal', () => {
