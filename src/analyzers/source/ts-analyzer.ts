@@ -187,6 +187,17 @@ function checkCallForSC003(
     return null;
   }
 
+  // Check if the enclosing function name signals a safety wrapper (e.g. readFileSafe, safeRead)
+  const enclosingFunc =
+    call.getFirstAncestorByKind(SyntaxKind.FunctionDeclaration) ||
+    call.getFirstAncestorByKind(SyntaxKind.MethodDeclaration);
+  if (enclosingFunc) {
+    const funcName = enclosingFunc.getName?.() ?? '';
+    if (/safe|validate|sanitize|checked/i.test(funcName)) {
+      return null;
+    }
+  }
+
   // Check if the file defines a path validation function (cross-function validation pattern)
   const fileText = sourceFile.getText();
   if (/function\s+validatePath|export\s+.*validatePath|const\s+validatePath/i.test(fileText)) {
