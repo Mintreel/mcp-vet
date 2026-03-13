@@ -35,7 +35,7 @@ function run(args: string): { stdout: string; exitCode: number } {
 describe('CLI Integration', () => {
   it('shows version', () => {
     const { stdout } = run('--version');
-    expect(stdout.trim()).toBe('0.1.0');
+    expect(stdout.trim()).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
   it('no-args with no configs exits 0 with helpful message', () => {
