@@ -23,6 +23,7 @@ const CONFIG_SAFE_PATTERNS = [
   /^options\./,
   /^settings\./,
   /^process\.env\./,
+  /^process\.argv/,
   /^__dirname/,
   /^__filename/,
   /^path\.join\(__dirname/,
@@ -113,8 +114,19 @@ export function traceNode(node: Node, _sourceFile: SourceFile, depth = 0): Taint
           const decl = declarations[0];
 
           // If it's a parameter — tainted (external input)
+          // Exception: constructor parameters are startup-time config, not per-call input
           if (decl.getKind() === SyntaxKind.Parameter) {
+            const parentMethod = decl.getFirstAncestorByKind(SyntaxKind.Constructor);
+            if (parentMethod) return 'UNKNOWN';
             return 'TAINTED';
+          }
+
+          // If it's an import — module-level constant, not per-call user input
+          if (
+            decl.getKind() === SyntaxKind.ImportSpecifier ||
+            decl.getKind() === SyntaxKind.ImportClause
+          ) {
+            return 'SAFE';
           }
 
           // If it's a variable declaration, trace the initializer
@@ -140,6 +152,13 @@ export function traceNode(node: Node, _sourceFile: SourceFile, depth = 0): Taint
     return 'UNKNOWN';
   }
 
+  // Element access (e.g. process.argv[2]) — trace the expression part
+  if (kind === SyntaxKind.ElementAccessExpression) {
+    const expr = node.getChildAtIndex(0);
+    if (expr) return traceNode(expr, _sourceFile, depth + 1);
+    return 'UNKNOWN';
+  }
+
   // Property access — check for external input patterns, then config patterns
   if (kind === SyntaxKind.PropertyAccessExpression) {
     const text = node.getText();
@@ -156,6 +175,14 @@ export function traceNode(node: Node, _sourceFile: SourceFile, depth = 0): Taint
   if (kind === SyntaxKind.CallExpression) {
     const callText = node.getText();
     if (/^(path\.(join|resolve|dirname|basename|normalize)|fileURLToPath|url\.fileURLToPath)\b/.test(callText)) {
+      return 'SAFE';
+    }
+    // Bare join/resolve from `import { join } from 'path'` with __dirname/__filename
+    if (/^(join|resolve)\s*\(/.test(callText) && /__(dirname|filename)/.test(callText)) {
+      return 'SAFE';
+    }
+    // Bare join/resolve with any string literal arg — path is partially server-controlled
+    if (/^(join|resolve)\s*\(/.test(callText) && /['"]/.test(callText)) {
       return 'SAFE';
     }
     return 'UNKNOWN';

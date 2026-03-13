@@ -9,6 +9,7 @@ import { formatTerminalReport, formatMultiServerReport } from './reporters/termi
 import { formatJsonReport } from './reporters/json.js';
 import { generateHtmlReport } from './reporters/html.js';
 import { generateSarifReport } from './reporters/sarif.js';
+import { VERSION } from './version.js';
 
 function resolveEntryPoint(packageRoot: string): string {
   try {
@@ -39,7 +40,7 @@ const program = new Command();
 program
   .name('mcp-vet')
   .description('MCP security auditor — scans MCP servers for vulnerabilities')
-  .version('0.1.0');
+  .version(VERSION);
 
 program
   .command('audit <target>')
@@ -149,7 +150,7 @@ program
 
       if (configs.length === 0) {
         console.log('');
-        console.log('  mcp-vet v0.1.0 — MCP security auditor');
+        console.log(`  mcp-vet v${VERSION} — MCP security auditor`);
         console.log('');
         console.log('  No MCP server configs found.');
         console.log('');

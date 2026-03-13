@@ -1,4 +1,5 @@
 import type { PipelineResult, MultiPipelineResult, Finding, Severity } from '../types.js';
+import { VERSION } from '../version.js';
 
 const SEVERITY_ORDER: Severity[] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFO'];
 
@@ -34,7 +35,9 @@ function headerBox(): string[] {
   const inner = BOX_W - 2;
   const lines: string[] = [];
   lines.push(dim(`┌${'─'.repeat(inner)}┐`));
-  lines.push(dim('│') + `  ${BOLD}mcp-vet${RESET} v0.1.0` + ' '.repeat(inner - 17) + dim('│'));
+  const versionStr = `  ${BOLD}mcp-vet${RESET} v${VERSION}`;
+  const visibleLen = `  mcp-vet v${VERSION}`.length;
+  lines.push(dim('│') + versionStr + ' '.repeat(inner - visibleLen) + dim('│'));
   lines.push(dim('│') + '  MCP Security Audit' + ' '.repeat(inner - 20) + dim('│'));
   lines.push(dim(`└${'─'.repeat(inner)}┘`));
   return lines;

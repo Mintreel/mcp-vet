@@ -112,12 +112,11 @@ describe('SC-002: SSRF', () => {
     }
   });
 
-  it('still flags fetch with user-controlled path in template literal as SC-002', () => {
+  it('still flags fetch with user-controlled base URL in template literal as SC-002', () => {
     const tmpFile = join(os.tmpdir(), `sc002-template-tainted-${Date.now()}.ts`);
     writeFileSync(tmpFile, `
-      const BASE = 'https://api.example.com';
       async function handler(req: any) {
-        await fetch(\`\${BASE}/\${req.params.path}\`);
+        await fetch(\`\${req.params.baseUrl}/\${req.params.path}\`);
       }
     `);
     try {
@@ -289,5 +288,244 @@ describe('SC-004: SQL Injection', () => {
     const sc004 = findings.filter((f) => f.id === 'SC-004');
     expect(sc004.length).toBeGreaterThanOrEqual(1);
     expect(sc004[0].severity).toBe('HIGH');
+  });
+});
+
+// ────────────────────────────────────────────────────────────────────────────
+// False positive regression tests
+// ────────────────────────────────────────────────────────────────────────────
+describe('FP regressions: SC-002 SSRF', () => {
+  it('FP-1: does not flag fetch with hardcoded scheme+host template', () => {
+    const tmpFile = join(os.tmpdir(), `fp1-hardcoded-host-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      async function getItem(id: string) {
+        const res = await fetch(\`https://api.example.com/items/\${id}\`);
+        return res.json();
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-1: does not flag fetch with safe const base URL template', () => {
+    const tmpFile = join(os.tmpdir(), `fp1-const-base-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      const API_BASE = 'https://api.example.com';
+      async function getItem(id: string) {
+        const res = await fetch(\`\${API_BASE}/items/\${id}\`);
+        return res.json();
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-1c: does not flag fetch when base URL is a cross-file import (module-level const)', () => {
+    const tmpFile = join(os.tmpdir(), `fp1c-import-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import { AUTH_SERVER_URL } from './lib/constants.js';
+      const authServerUrl = AUTH_SERVER_URL;
+      async function handler() {
+        await fetch(\`\${authServerUrl}/.well-known/oauth-authorization-server\`);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-1d: does not flag fetch(url) where url is assigned a hardcoded-base template', () => {
+    const tmpFile = join(os.tmpdir(), `fp1d-indirect-template-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      async function cacheApi(version: string) {
+        const url = \`https://cdn.jsdelivr.net/npm/vuetify@\${version}/dist/json/web-types.json\`;
+        const text = await fetch(url).then(r => r.text());
+        return text;
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-2: does not flag fetch to localhost', () => {
+    const tmpFile = join(os.tmpdir(), `fp2-localhost-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      async function healthCheck(port: number) {
+        const res = await fetch(\`http://localhost:\${port}/api\`);
+        return res.ok;
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+});
+
+describe('FP regressions: SC-003 Path Traversal', () => {
+  it('FP-3: does not flag readFileSync(join(__dirname, ...))', () => {
+    const tmpFile = join(os.tmpdir(), `fp3-dirname-join-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import { join } from 'path';
+      import { readFileSync } from 'fs';
+      const pkg = JSON.parse(readFileSync(join(__dirname, '../../package.json'), 'utf8'));
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-4: does not flag constructor param used in method', () => {
+    const tmpFile = join(os.tmpdir(), `fp4-constructor-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      class DB {
+        private dbPath: string;
+        constructor(dbPath: string) {
+          this.dbPath = dbPath;
+        }
+        read() {
+          return fs.readFileSync(this.dbPath, 'utf8');
+        }
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-5: does not flag unlinkSync with UNKNOWN path', () => {
+    const tmpFile = join(os.tmpdir(), `fp5-unlink-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import { unlinkSync } from 'fs';
+      function cleanup() {
+        const tmp = createTempFile();
+        unlinkSync(tmp);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-5: still flags fs.unlinkSync with TAINTED path', () => {
+    const tmpFile = join(os.tmpdir(), `fp5-unlink-tainted-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      function handler(args: { filePath: string }) {
+        fs.unlinkSync(args.filePath);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBeGreaterThanOrEqual(1);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-6: does not flag writeFileSync(process.argv[2], ...)', () => {
+    const tmpFile = join(os.tmpdir(), `fp6-argv-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      fs.writeFileSync(process.argv[2], 'data');
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-3b: does not flag readFileSync(file) where file = join(dir, hardcoded-filename)', () => {
+    const tmpFile = join(os.tmpdir(), `fp3b-join-hardcoded-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import { join } from 'path';
+      import { readFileSync, existsSync } from 'fs';
+      function getApi(version: string) {
+        const dir = getApiCacheDir(version);
+        const file = join(dir, 'web-types.json');
+        if (existsSync(file) && version !== 'latest') {
+          return readFileSync(file, 'utf8');
+        }
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-7: does not flag forEach over hardcoded array', () => {
+    const tmpFile = join(os.tmpdir(), `fp7-array-foreach-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import fs from 'fs';
+      ['/a', '/b', '/c'].forEach(f => fs.accessSync(f));
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
+  it('FP-8: does not flag when ensureExtension is in function body', () => {
+    const tmpFile = join(os.tmpdir(), `fp8-ensure-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      import { unlinkSync } from 'fs';
+      function removeFile(p: string) {
+        const safe = ensureExtension(p, '.tmp');
+        unlinkSync(safe);
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc003 = findings.filter((f) => f.id === 'SC-003');
+      expect(sc003.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
   });
 });

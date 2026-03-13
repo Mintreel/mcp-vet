@@ -17,7 +17,7 @@ registerRule(
     id: 'DW-001',
     name: 'Recursive Call Instructions',
     vector: 'DENIAL_OF_WALLET',
-    severity: 'HIGH',
+    severity: 'LOW',
     description: 'Tool descriptions instructing loops, self-referential calls, or chaining.',
   },
   (server: ServerDefinition): Finding[] => {
@@ -30,14 +30,14 @@ registerRule(
           findings.push({
             id: 'DW-001',
             vector: 'DENIAL_OF_WALLET',
-            severity: 'HIGH',
+            severity: 'LOW',
             title: 'Recursive Call Instructions',
             description: `Tool "${tool.name}" contains instructions for recursive or looping calls that may cause excessive API usage.`,
             toolName: tool.name,
             evidence: `Matched pattern: "${match[0]}"`,
             recommendation:
               'Remove recursive call instructions. If iteration is needed, implement it server-side with proper bounds.',
-            confidence: 0.75,
+            confidence: 0.5,
           });
           break;
         }

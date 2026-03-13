@@ -136,9 +136,46 @@ function checkCallForSC002(
   if (args.length === 0) return null;
 
   const urlArg = args[0];
+
+  // Localhost requests are internal, not SSRF
+  const urlText = urlArg.getText();
+  if (/['"`]?https?:\/\/(localhost|127\.0\.0\.1|\[::1\])/.test(urlText)) return null;
+
   const result = traceNode(urlArg, sourceFile);
 
   if (result === 'SAFE') return null;
+
+  // Suppress SSRF when URL base is hardcoded (only path segments are tainted).
+  // Resolve through one level of variable assignment if urlArg is an Identifier.
+  let templateNode = urlArg;
+  if (urlArg.getKind() === SyntaxKind.Identifier) {
+    try {
+      const sym = urlArg.getSymbol();
+      const decls = sym?.getDeclarations();
+      if (decls && decls.length > 0 && decls[0].getKind() === SyntaxKind.VariableDeclaration) {
+        const children = decls[0].getChildren();
+        const eqIdx = children.findIndex((c) => c.getKind() === SyntaxKind.EqualsToken);
+        if (eqIdx >= 0 && eqIdx + 1 < children.length) {
+          templateNode = children[eqIdx + 1];
+        }
+      }
+    } catch { /* symbol resolution failed */ }
+  }
+  if (templateNode.getKind() === SyntaxKind.TemplateExpression) {
+    const heads = templateNode.getChildrenOfKind(SyntaxKind.TemplateHead);
+    if (heads.length > 0) {
+      const headText = heads[0].getLiteralText();
+      // Template starts with scheme+host: `http://api.example.com/...${tainted}`
+      if (/^https?:\/\/[a-zA-Z0-9.-]+/.test(headText)) return null;
+    }
+    // Template starts with interpolation: `${BASE_URL}/...`
+    // Check if the first span (base URL) resolves to SAFE
+    const spans = templateNode.getChildrenOfKind(SyntaxKind.TemplateSpan);
+    if (spans.length > 0) {
+      const firstExpr = spans[0].getChildAtIndex(0);
+      if (firstExpr && traceNode(firstExpr, sourceFile) === 'SAFE') return null;
+    }
+  }
 
   // Check if there's URL validation nearby
   const funcBody = call.getFirstAncestorByKind(SyntaxKind.Block);
@@ -193,7 +230,7 @@ function checkCallForSC003(
     call.getFirstAncestorByKind(SyntaxKind.MethodDeclaration);
   if (enclosingFunc) {
     const funcName = enclosingFunc.getName?.() ?? '';
-    if (/safe|validate|sanitize|checked/i.test(funcName)) {
+    if (/safe|validate|sanitize|checked|normalize|clean|ensure|canonical/i.test(funcName)) {
       return null;
     }
   }
@@ -214,7 +251,7 @@ function checkCallForSC003(
     const bodyText = funcDecl.getText();
 
     // validatePath() or similar validation function call present
-    if (/validatePath|sanitizePath|normalizePath|checkPath/i.test(bodyText)) {
+    if (/validatePath|sanitizePath|normalizePath|checkPath|ensurePath|ensureExtension|decodeAndNormalize|cleanPath|resolvePath|safePath|canonicalize|toAbsolute/i.test(bodyText)) {
       return null;
     }
 
@@ -246,6 +283,29 @@ function checkCallForSC003(
     }
   }
 
+  // Check if inside forEach/map over hardcoded array literal — safe regardless of taint
+  {
+    const arrowOrFunc = call.getFirstAncestorByKind(SyntaxKind.ArrowFunction)
+      || call.getFirstAncestorByKind(SyntaxKind.FunctionExpression);
+    if (arrowOrFunc) {
+      // Arrow may be direct child of CallExpression or wrapped in SyntaxList
+      let parentCall = arrowOrFunc.getParent();
+      if (parentCall && parentCall.getKind() !== SyntaxKind.CallExpression) {
+        parentCall = parentCall.getParent();
+      }
+      if (parentCall?.getKind() === SyntaxKind.CallExpression) {
+        const parentExpr = (parentCall as CallExpression).getExpression().getText();
+        if (/\.(forEach|map|filter|some|every)$/.test(parentExpr)) {
+          const callerObj = (parentCall as CallExpression).getExpression();
+          if (callerObj.getKind() === SyntaxKind.PropertyAccessExpression) {
+            const obj = callerObj.getChildAtIndex(0);
+            if (obj?.getKind() === SyntaxKind.ArrayLiteralExpression) return null;
+          }
+        }
+      }
+    }
+  }
+
   // TAINTED — confirmed user-controlled input, report HIGH
   if (result === 'TAINTED') {
     return {
@@ -269,6 +329,11 @@ function checkCallForSC003(
   // dangerous generics like `path` or `file` while catching `fullPath`, `configFile`, etc.
   const INTERNAL_PATH_PREFIXES = /^(cache|cached|config|full|resolved|base|dir|root|start|pkg|dist|bundle|module|template|asset|static|vendor|lib|file)(Path|File|Dir|Folder|Name)/i;
   if (INTERNAL_PATH_PREFIXES.test(pathArgText)) return null;
+
+  // For delete operations, UNKNOWN is low-risk — internal temp file cleanup
+  if (/^(fs\.)?(unlink|unlinkSync)$/.test(callName)) {
+    return null;
+  }
 
   return {
     id: 'SC-003',
