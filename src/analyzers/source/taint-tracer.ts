@@ -168,6 +168,38 @@ export function traceNode(node: Node, _sourceFile: SourceFile, depth = 0): Taint
     if (CONFIG_SAFE_PATTERNS.some((p) => p.test(text))) {
       return 'SAFE';
     }
+
+    // Trace this.X back to constructor assignment: this.X = <value>
+    const propMatch = text.match(/^this\.(\w+)$/);
+    if (propMatch) {
+      const propName = propMatch[1];
+      try {
+        const classDecl = node.getFirstAncestorByKind(SyntaxKind.ClassDeclaration);
+        if (classDecl) {
+          const ctor = classDecl.getFirstChildByKind(SyntaxKind.Constructor);
+          if (ctor) {
+            const ctorBody = ctor.getBody();
+            if (ctorBody) {
+              // Find assignments like: this.propName = <expr>
+              const assignments = ctorBody.getDescendantsOfKind(SyntaxKind.BinaryExpression);
+              for (const assign of assignments) {
+                const children = assign.getChildren();
+                // BinaryExpression: [left, EqualsToken, right]
+                if (children.length >= 3 && children[1].getKind() === SyntaxKind.EqualsToken) {
+                  const left = children[0].getText();
+                  if (left === `this.${propName}`) {
+                    return traceNode(children[2], _sourceFile, depth + 1);
+                  }
+                }
+              }
+            }
+          }
+        }
+      } catch {
+        // AST traversal failed
+      }
+    }
+
     return 'UNKNOWN';
   }
 

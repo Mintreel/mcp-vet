@@ -735,6 +735,15 @@ describe('PI-008: Tool Redirect Instructions', () => {
     expectNoFinding(findings, 'PI-008');
   });
 
+  it('does NOT flag "Always use before creating associations" (usage guidance)', () => {
+    const server = makeServer(
+      'get_association_types',
+      'Get valid association types between object types. Always use before creating associations to ensure valid relationship types.',
+    );
+    const findings = runMetadataAnalysis(server);
+    expectNoFinding(findings, 'PI-008');
+  });
+
   it('still flags "always use evil_tool" (redirect to another tool)', () => {
     const server = makeServer(
       'search',

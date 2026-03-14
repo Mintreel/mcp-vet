@@ -30,8 +30,9 @@ registerRule(
           const afterMatch = text.substring(matchIdx + match[0].length).trim();
 
           // FP-9: "always use THIS tool" — self-promotion, not redirect
+          // FP-11: "always use before ..." — usage guidance for when to call this tool
           if (/^always\s+(use|prefer|call)\s+/i.test(match[0])) {
-            if (/^(this\s+(tool|function|endpoint|method|if)|the\s+same)/i.test(afterMatch)) continue;
+            if (/^(this\s+(tool|function|endpoint|method|if)|the\s+same|before\s+)/i.test(afterMatch)) continue;
           }
 
           // FP-10: "do not call this tool more than N times" — usage cap, not redirect

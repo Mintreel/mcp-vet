@@ -366,6 +366,30 @@ describe('FP regressions: SC-002 SSRF', () => {
     }
   });
 
+  it('FP-1e: does not flag fetch(url) where url uses this.baseUrl set in constructor from env || hardcoded', () => {
+    const tmpFile = join(os.tmpdir(), `fp1e-class-prop-${Date.now()}.ts`);
+    writeFileSync(tmpFile, `
+      class HubSpotClient {
+        private baseUrl: string;
+        constructor() {
+          this.baseUrl = process.env.BASE_URL_OVERRIDE || 'https://api.hubspot.com';
+        }
+        async makeRequest(path: string) {
+          const url = \`\${this.baseUrl}/\${path}\`;
+          const response = await fetch(url);
+          return response.json();
+        }
+      }
+    `);
+    try {
+      const findings = analyzeTypeScriptFile(tmpFile);
+      const sc002 = findings.filter((f) => f.id === 'SC-002');
+      expect(sc002.length).toBe(0);
+    } finally {
+      unlinkSync(tmpFile);
+    }
+  });
+
   it('FP-2: does not flag fetch to localhost', () => {
     const tmpFile = join(os.tmpdir(), `fp2-localhost-${Date.now()}.ts`);
     writeFileSync(tmpFile, `
