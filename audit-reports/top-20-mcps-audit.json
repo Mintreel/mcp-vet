@@ -1,0 +1,1145 @@
+{
+  "timestamp": "2026-03-14T11:23:11.101Z",
+  "totalServers": 20,
+  "totalTools": 140,
+  "findings": [
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "brave-search",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "brave-search",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "brave-search",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"brave-search\" has no rate limit or timeout configuration.",
+      "toolName": "brave-search",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "context7",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "context7",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "context7",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"context7\" has no rate limit or timeout configuration.",
+      "toolName": "context7",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "fetch",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "fetch",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "fetch",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"fetch\" has no rate limit or timeout configuration.",
+      "toolName": "fetch",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "filesystem",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "filesystem",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "filesystem",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"filesystem\" has no rate limit or timeout configuration.",
+      "toolName": "filesystem",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "git",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "git",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "git",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"git\" has no rate limit or timeout configuration.",
+      "toolName": "git",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "github",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "github",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "github",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"github\" has no rate limit or timeout configuration.",
+      "toolName": "github",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "google-drive",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "google-drive",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "google-drive",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"google-drive\" has no rate limit or timeout configuration.",
+      "toolName": "google-drive",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "linear",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "linear",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "linear",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"linear\" has no rate limit or timeout configuration.",
+      "toolName": "linear",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "memory",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "memory",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "memory",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"memory\" has no rate limit or timeout configuration.",
+      "toolName": "memory",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "mysql",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "mysql",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "mysql",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"mysql\" has no rate limit or timeout configuration.",
+      "toolName": "mysql",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "notion",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "notion",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "notion",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"notion\" has no rate limit or timeout configuration.",
+      "toolName": "notion",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "DE-003",
+      "vector": "DATA_EXFILTRATION",
+      "severity": "MEDIUM",
+      "title": "Broad File Path Parameter",
+      "description": "Tool \"get_endpoint_details\" accepts file path parameter \"path\" but is not a file-related tool.",
+      "toolName": "get_endpoint_details",
+      "evidence": "Parameter \"path\" in non-file tool \"get_endpoint_details\"",
+      "recommendation": "Review why a non-file tool needs file path parameters. This could allow arbitrary file access.",
+      "confidence": 0.6
+    },
+    {
+      "id": "DE-003",
+      "vector": "DATA_EXFILTRATION",
+      "severity": "MEDIUM",
+      "title": "Broad File Path Parameter",
+      "description": "Tool \"call_endpoint\" accepts file path parameter \"path\" but is not a file-related tool.",
+      "toolName": "call_endpoint",
+      "evidence": "Parameter \"path\" in non-file tool \"call_endpoint\"",
+      "recommendation": "Review why a non-file tool needs file path parameters. This could allow arbitrary file access.",
+      "confidence": 0.6
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "openapi",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "openapi",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "openapi",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"openapi\" has no rate limit or timeout configuration.",
+      "toolName": "openapi",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "playwright",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "playwright",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "playwright",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"playwright\" has no rate limit or timeout configuration.",
+      "toolName": "playwright",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "postgres",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "postgres",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "postgres",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"postgres\" has no rate limit or timeout configuration.",
+      "toolName": "postgres",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "puppeteer",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "puppeteer",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "puppeteer",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"puppeteer\" has no rate limit or timeout configuration.",
+      "toolName": "puppeteer",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "sequential-thinking",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "sequential-thinking",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "sequential-thinking",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"sequential-thinking\" has no rate limit or timeout configuration.",
+      "toolName": "sequential-thinking",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "slack",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "slack",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "slack",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"slack\" has no rate limit or timeout configuration.",
+      "toolName": "slack",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "stripe",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "stripe",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "stripe",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"stripe\" has no rate limit or timeout configuration.",
+      "toolName": "stripe",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "supabase",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "supabase",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "supabase",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"supabase\" has no rate limit or timeout configuration.",
+      "toolName": "supabase",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Git + Filesystem = potential RCE via git hooks",
+      "toolName": "twitter",
+      "evidence": "Matched tool patterns in server configuration",
+      "cveRef": "CVE-2025-68143",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "File read + HTTP out = data exfiltration",
+      "toolName": "twitter",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "PE-002",
+      "vector": "PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "title": "Dangerous Tool Combination",
+      "description": "Database access + external communication = data exfiltration",
+      "toolName": "twitter",
+      "evidence": "Matched tool patterns in server configuration",
+      "recommendation": "Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.",
+      "confidence": 0.75
+    },
+    {
+      "id": "DW-002",
+      "vector": "DENIAL_OF_WALLET",
+      "severity": "INFO",
+      "title": "Missing Rate Limits",
+      "description": "Server \"twitter\" has no rate limit or timeout configuration.",
+      "toolName": "twitter",
+      "evidence": "No rateLimit or timeout fields in server configuration",
+      "recommendation": "Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.",
+      "confidence": 0.3
+    },
+    {
+      "id": "TS-003",
+      "vector": "CROSS_SERVER_SHADOWING",
+      "severity": "CRITICAL",
+      "title": "Toxic Flow Detected",
+      "description": "File exfiltration: READ_FILES → HTTP_OUT path exists across servers.",
+      "toolName": "read_file,list_directory,get_file_info,get_file_contents,get_file → fetch,create_pull_request",
+      "evidence": "Capability path: READ_FILES (filesystem/read_file, filesystem/list_directory, filesystem/get_file_info, github/get_file_contents, google-drive/get_file) → HTTP_OUT (fetch/fetch, github/create_pull_request)",
+      "recommendation": "Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.",
+      "confidence": 0.75
+    },
+    {
+      "id": "TS-003",
+      "vector": "CROSS_SERVER_SHADOWING",
+      "severity": "CRITICAL",
+      "title": "Toxic Flow Detected",
+      "description": "Database exfiltration: DB_ACCESS → HTTP_OUT path exists across servers.",
+      "toolName": "query-docs,mysql_query,post-database-query,post-search,post-page,create-a-database,update-a-database,retrieve-a-database,browser_select_option,browser_type,browser_tabs,query,list_tables,describe_table,puppeteer_select,query_table,insert_row,update_row,delete_row → fetch,create_pull_request",
+      "evidence": "Capability path: DB_ACCESS (context7/query-docs, mysql/mysql_query, notion/post-database-query, notion/post-search, notion/post-page, notion/create-a-database, notion/update-a-database, notion/retrieve-a-database, playwright/browser_select_option, playwright/browser_type, playwright/browser_tabs, postgres/query, postgres/list_tables, postgres/describe_table, puppeteer/puppeteer_select, supabase/query_table, supabase/insert_row, supabase/update_row, supabase/delete_row) → HTTP_OUT (fetch/fetch, github/create_pull_request)",
+      "recommendation": "Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.",
+      "confidence": 0.75
+    },
+    {
+      "id": "TS-003",
+      "vector": "CROSS_SERVER_SHADOWING",
+      "severity": "CRITICAL",
+      "title": "Toxic Flow Detected",
+      "description": "Read + execute chain: READ_FILES → EXEC_CODE path exists across servers.",
+      "toolName": "read_file,list_directory,get_file_info,get_file_contents,get_file → browser_evaluate,browser_run_code,puppeteer_evaluate",
+      "evidence": "Capability path: READ_FILES (filesystem/read_file, filesystem/list_directory, filesystem/get_file_info, github/get_file_contents, google-drive/get_file) → EXEC_CODE (playwright/browser_evaluate, playwright/browser_run_code, puppeteer/puppeteer_evaluate)",
+      "recommendation": "Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.",
+      "confidence": 0.75
+    },
+    {
+      "id": "TS-003",
+      "vector": "CROSS_SERVER_SHADOWING",
+      "severity": "CRITICAL",
+      "title": "Toxic Flow Detected",
+      "description": "Write + execute = RCE: WRITE_FILES → EXEC_CODE path exists across servers.",
+      "toolName": "write_file,edit_file,create_file → browser_evaluate,browser_run_code,puppeteer_evaluate",
+      "evidence": "Capability path: WRITE_FILES (filesystem/write_file, filesystem/edit_file, google-drive/create_file) → EXEC_CODE (playwright/browser_evaluate, playwright/browser_run_code, puppeteer/puppeteer_evaluate)",
+      "recommendation": "Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.",
+      "confidence": 0.75
+    },
+    {
+      "id": "SU-003",
+      "vector": "SUPPLY_CHAIN",
+      "severity": "MEDIUM",
+      "title": "Untrusted Content Processing",
+      "description": "Tool \"create_or_update_file\" processes messages and has write capabilities without mentioning sanitization.",
+      "toolName": "create_or_update_file",
+      "evidence": "Processes messages with write capabilities",
+      "recommendation": "Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.",
+      "confidence": 0.6
+    },
+    {
+      "id": "SU-003",
+      "vector": "SUPPLY_CHAIN",
+      "severity": "MEDIUM",
+      "title": "Untrusted Content Processing",
+      "description": "Tool \"create_pull_request\" processes pull requests and has write capabilities without mentioning sanitization.",
+      "toolName": "create_pull_request",
+      "evidence": "Processes pull requests with write capabilities",
+      "recommendation": "Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.",
+      "confidence": 0.6
+    },
+    {
+      "id": "SU-003",
+      "vector": "SUPPLY_CHAIN",
+      "severity": "MEDIUM",
+      "title": "Untrusted Content Processing",
+      "description": "Tool \"create-a-comment\" processes comments and has write capabilities without mentioning sanitization.",
+      "toolName": "create-a-comment",
+      "evidence": "Processes comments with write capabilities",
+      "recommendation": "Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.",
+      "confidence": 0.6
+    },
+    {
+      "id": "SU-003",
+      "vector": "SUPPLY_CHAIN",
+      "severity": "MEDIUM",
+      "title": "Untrusted Content Processing",
+      "description": "Tool \"slack_post_message\" processes messages and has write capabilities without mentioning sanitization.",
+      "toolName": "slack_post_message",
+      "evidence": "Processes messages with write capabilities",
+      "recommendation": "Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.",
+      "confidence": 0.6
+    }
+  ],
+  "score": {
+    "score": 0,
+    "grade": "F",
+    "autoFail": false,
+    "autoFailReasons": []
+  },
+  "servers": [
+    {
+      "name": "brave-search",
+      "version": "2025.1.0",
+      "toolCount": 2,
+      "findings": 4
+    },
+    {
+      "name": "context7",
+      "version": "2025.1.0",
+      "toolCount": 2,
+      "findings": 4
+    },
+    {
+      "name": "fetch",
+      "version": "2025.1.0",
+      "toolCount": 1,
+      "findings": 4
+    },
+    {
+      "name": "filesystem",
+      "version": "2025.1.0",
+      "toolCount": 10,
+      "findings": 4
+    },
+    {
+      "name": "git",
+      "version": "2025.1.0",
+      "toolCount": 10,
+      "findings": 4
+    },
+    {
+      "name": "github",
+      "version": "2025.1.0",
+      "toolCount": 12,
+      "findings": 4
+    },
+    {
+      "name": "google-drive",
+      "version": "0.2.0",
+      "toolCount": 5,
+      "findings": 4
+    },
+    {
+      "name": "linear",
+      "version": "1.0.0",
+      "toolCount": 4,
+      "findings": 4
+    },
+    {
+      "name": "memory",
+      "version": "2025.1.0",
+      "toolCount": 9,
+      "findings": 4
+    },
+    {
+      "name": "mysql",
+      "version": "2.0.8",
+      "toolCount": 1,
+      "findings": 4
+    },
+    {
+      "name": "notion",
+      "version": "0.0.7",
+      "toolCount": 19,
+      "findings": 4
+    },
+    {
+      "name": "openapi",
+      "version": "1.0.0",
+      "toolCount": 4,
+      "findings": 4
+    },
+    {
+      "name": "playwright",
+      "version": "2025.1.0",
+      "toolCount": 27,
+      "findings": 4
+    },
+    {
+      "name": "postgres",
+      "version": "2025.1.0",
+      "toolCount": 3,
+      "findings": 4
+    },
+    {
+      "name": "puppeteer",
+      "version": "2025.5.12",
+      "toolCount": 7,
+      "findings": 4
+    },
+    {
+      "name": "sequential-thinking",
+      "version": "2025.1.0",
+      "toolCount": 1,
+      "findings": 4
+    },
+    {
+      "name": "slack",
+      "version": "2025.4.25",
+      "toolCount": 8,
+      "findings": 4
+    },
+    {
+      "name": "stripe",
+      "version": "2.0.0",
+      "toolCount": 5,
+      "findings": 4
+    },
+    {
+      "name": "supabase",
+      "version": "1.5.0",
+      "toolCount": 5,
+      "findings": 4
+    },
+    {
+      "name": "twitter",
+      "version": "2.0.0",
+      "toolCount": 5,
+      "findings": 4
+    }
+  ]
+}

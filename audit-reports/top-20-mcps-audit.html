@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mcp-vet Security Report — brave-search</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+  .header { text-align: center; margin-bottom: 2rem; }
+  .header h1 { font-size: 1.5rem; color: #475569; }
+  .header .meta { color: #94a3b8; font-size: 0.875rem; margin-top: 0.5rem; }
+  .grade-circle { display: inline-flex; align-items: center; justify-content: center; width: 120px; height: 120px; border-radius: 50%; border: 6px solid #dc2626; margin: 1.5rem auto; }
+  .grade-circle .grade { font-size: 3rem; font-weight: bold; color: #dc2626; }
+  .score-text { font-size: 1.25rem; color: #475569; }
+  .auto-fail { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin: 1rem 0; color: #991b1b; }
+  .section { margin: 2rem 0; }
+  .section h2 { font-size: 1.25rem; color: #334155; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  .finding { background: white; border-radius: 8px; padding: 1rem; margin: 0.75rem 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .finding-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .finding-meta { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.5rem; }
+  .badge { color: white; padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .evidence, .recommendation, .cve { font-size: 0.875rem; color: #64748b; margin: 0.5rem 0; padding: 0.5rem; background: #f1f5f9; border-radius: 4px; }
+  .summary { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .summary-item { text-align: center; }
+  .summary-item .count { font-size: 1.5rem; font-weight: bold; }
+  .footer { text-align: center; color: #94a3b8; font-size: 0.75rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>mcp-vet Security Report</h1>
+    <div class="meta">brave-search v2025.1.0 | 2026-03-14T11:23:11.098Z</div>
+    <div class="grade-circle"><span class="grade">F</span></div>
+    <div class="score-text">Trust Score: 0/100</div>
+  </div>
+
+  
+
+  <div class="section">
+    <h2>Findings (90)</h2>
+    
+    
+      <h3 style="color: #dc2626; margin: 1rem 0 0.5rem;">CRITICAL (64)</h3>
+      
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: brave-search | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: brave-search | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: brave-search | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: context7 | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: context7 | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: context7 | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: fetch | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: fetch | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: fetch | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: filesystem | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: filesystem | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: filesystem | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: git | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: git | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: git | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: github | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: github | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: github | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: google-drive | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: google-drive | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: google-drive | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: linear | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: linear | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: linear | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: memory | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: memory | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: memory | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: mysql | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: mysql | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: mysql | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: notion | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: notion | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: notion | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: openapi | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: openapi | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: openapi | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: playwright | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: playwright | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: playwright | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: postgres | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: postgres | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: postgres | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: puppeteer | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: puppeteer | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: puppeteer | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: sequential-thinking | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: sequential-thinking | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: sequential-thinking | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: slack | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: slack | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: slack | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: stripe | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: stripe | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: stripe | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: supabase | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: supabase | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: supabase | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: twitter | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Git + Filesystem = potential RCE via git hooks</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      <div class="cve"><strong>CVE:</strong> <a href="https://osv.dev/vulnerability/CVE-2025-68143" target="_blank">CVE-2025-68143</a></div>
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: twitter | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>File read + HTTP out = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>PE-002</strong>: Dangerous Tool Combination
+      </div>
+      <div class="finding-meta">Tool: twitter | Vector: PRIVILEGE_ESCALATION | Confidence: 75%</div>
+      <p>Database access + external communication = data exfiltration</p>
+      <div class="evidence"><strong>Evidence:</strong> Matched tool patterns in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these tools need to be available in the same configuration. Consider isolating high-risk tools.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>TS-003</strong>: Toxic Flow Detected
+      </div>
+      <div class="finding-meta">Tool: read_file,list_directory,get_file_info,get_file_contents,get_file → fetch,create_pull_request | Vector: CROSS_SERVER_SHADOWING | Confidence: 75%</div>
+      <p>File exfiltration: READ_FILES → HTTP_OUT path exists across servers.</p>
+      <div class="evidence"><strong>Evidence:</strong> Capability path: READ_FILES (filesystem/read_file, filesystem/list_directory, filesystem/get_file_info, github/get_file_contents, google-drive/get_file) → HTTP_OUT (fetch/fetch, github/create_pull_request)</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>TS-003</strong>: Toxic Flow Detected
+      </div>
+      <div class="finding-meta">Tool: query-docs,mysql_query,post-database-query,post-search,post-page,create-a-database,update-a-database,retrieve-a-database,browser_select_option,browser_type,browser_tabs,query,list_tables,describe_table,puppeteer_select,query_table,insert_row,update_row,delete_row → fetch,create_pull_request | Vector: CROSS_SERVER_SHADOWING | Confidence: 75%</div>
+      <p>Database exfiltration: DB_ACCESS → HTTP_OUT path exists across servers.</p>
+      <div class="evidence"><strong>Evidence:</strong> Capability path: DB_ACCESS (context7/query-docs, mysql/mysql_query, notion/post-database-query, notion/post-search, notion/post-page, notion/create-a-database, notion/update-a-database, notion/retrieve-a-database, playwright/browser_select_option, playwright/browser_type, playwright/browser_tabs, postgres/query, postgres/list_tables, postgres/describe_table, puppeteer/puppeteer_select, supabase/query_table, supabase/insert_row, supabase/update_row, supabase/delete_row) → HTTP_OUT (fetch/fetch, github/create_pull_request)</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>TS-003</strong>: Toxic Flow Detected
+      </div>
+      <div class="finding-meta">Tool: read_file,list_directory,get_file_info,get_file_contents,get_file → browser_evaluate,browser_run_code,puppeteer_evaluate | Vector: CROSS_SERVER_SHADOWING | Confidence: 75%</div>
+      <p>Read + execute chain: READ_FILES → EXEC_CODE path exists across servers.</p>
+      <div class="evidence"><strong>Evidence:</strong> Capability path: READ_FILES (filesystem/read_file, filesystem/list_directory, filesystem/get_file_info, github/get_file_contents, google-drive/get_file) → EXEC_CODE (playwright/browser_evaluate, playwright/browser_run_code, puppeteer/puppeteer_evaluate)</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #dc2626;">
+      <div class="finding-header">
+        <span class="badge" style="background: #dc2626;">CRITICAL</span>
+        <strong>TS-003</strong>: Toxic Flow Detected
+      </div>
+      <div class="finding-meta">Tool: write_file,edit_file,create_file → browser_evaluate,browser_run_code,puppeteer_evaluate | Vector: CROSS_SERVER_SHADOWING | Confidence: 75%</div>
+      <p>Write + execute = RCE: WRITE_FILES → EXEC_CODE path exists across servers.</p>
+      <div class="evidence"><strong>Evidence:</strong> Capability path: WRITE_FILES (filesystem/write_file, filesystem/edit_file, google-drive/create_file) → EXEC_CODE (playwright/browser_evaluate, playwright/browser_run_code, puppeteer/puppeteer_evaluate)</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review whether these servers need to be configured together. Consider isolating servers to prevent cross-server attack chains.</div>
+    </div>
+    
+      <h3 style="color: #ca8a04; margin: 1rem 0 0.5rem;">MEDIUM (6)</h3>
+      
+    <div class="finding" style="border-left: 4px solid #ca8a04;">
+      <div class="finding-header">
+        <span class="badge" style="background: #ca8a04;">MEDIUM</span>
+        <strong>DE-003</strong>: Broad File Path Parameter
+      </div>
+      <div class="finding-meta">Tool: get_endpoint_details | Vector: DATA_EXFILTRATION | Confidence: 60%</div>
+      <p>Tool &quot;get_endpoint_details&quot; accepts file path parameter &quot;path&quot; but is not a file-related tool.</p>
+      <div class="evidence"><strong>Evidence:</strong> Parameter &quot;path&quot; in non-file tool &quot;get_endpoint_details&quot;</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review why a non-file tool needs file path parameters. This could allow arbitrary file access.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #ca8a04;">
+      <div class="finding-header">
+        <span class="badge" style="background: #ca8a04;">MEDIUM</span>
+        <strong>DE-003</strong>: Broad File Path Parameter
+      </div>
+      <div class="finding-meta">Tool: call_endpoint | Vector: DATA_EXFILTRATION | Confidence: 60%</div>
+      <p>Tool &quot;call_endpoint&quot; accepts file path parameter &quot;path&quot; but is not a file-related tool.</p>
+      <div class="evidence"><strong>Evidence:</strong> Parameter &quot;path&quot; in non-file tool &quot;call_endpoint&quot;</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Review why a non-file tool needs file path parameters. This could allow arbitrary file access.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #ca8a04;">
+      <div class="finding-header">
+        <span class="badge" style="background: #ca8a04;">MEDIUM</span>
+        <strong>SU-003</strong>: Untrusted Content Processing
+      </div>
+      <div class="finding-meta">Tool: create_or_update_file | Vector: SUPPLY_CHAIN | Confidence: 60%</div>
+      <p>Tool &quot;create_or_update_file&quot; processes messages and has write capabilities without mentioning sanitization.</p>
+      <div class="evidence"><strong>Evidence:</strong> Processes messages with write capabilities</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #ca8a04;">
+      <div class="finding-header">
+        <span class="badge" style="background: #ca8a04;">MEDIUM</span>
+        <strong>SU-003</strong>: Untrusted Content Processing
+      </div>
+      <div class="finding-meta">Tool: create_pull_request | Vector: SUPPLY_CHAIN | Confidence: 60%</div>
+      <p>Tool &quot;create_pull_request&quot; processes pull requests and has write capabilities without mentioning sanitization.</p>
+      <div class="evidence"><strong>Evidence:</strong> Processes pull requests with write capabilities</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #ca8a04;">
+      <div class="finding-header">
+        <span class="badge" style="background: #ca8a04;">MEDIUM</span>
+        <strong>SU-003</strong>: Untrusted Content Processing
+      </div>
+      <div class="finding-meta">Tool: create-a-comment | Vector: SUPPLY_CHAIN | Confidence: 60%</div>
+      <p>Tool &quot;create-a-comment&quot; processes comments and has write capabilities without mentioning sanitization.</p>
+      <div class="evidence"><strong>Evidence:</strong> Processes comments with write capabilities</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #ca8a04;">
+      <div class="finding-header">
+        <span class="badge" style="background: #ca8a04;">MEDIUM</span>
+        <strong>SU-003</strong>: Untrusted Content Processing
+      </div>
+      <div class="finding-meta">Tool: slack_post_message | Vector: SUPPLY_CHAIN | Confidence: 60%</div>
+      <p>Tool &quot;slack_post_message&quot; processes messages and has write capabilities without mentioning sanitization.</p>
+      <div class="evidence"><strong>Evidence:</strong> Processes messages with write capabilities</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Ensure untrusted content is properly sanitized before processing. Consider adding input validation and output encoding.</div>
+    </div>
+    
+      <h3 style="color: #6b7280; margin: 1rem 0 0.5rem;">INFO (20)</h3>
+      
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: brave-search | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;brave-search&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: context7 | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;context7&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: fetch | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;fetch&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: filesystem | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;filesystem&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: git | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;git&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: github | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;github&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: google-drive | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;google-drive&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: linear | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;linear&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: memory | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;memory&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: mysql | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;mysql&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: notion | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;notion&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: openapi | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;openapi&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: playwright | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;playwright&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: postgres | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;postgres&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: puppeteer | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;puppeteer&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: sequential-thinking | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;sequential-thinking&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: slack | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;slack&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: stripe | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;stripe&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: supabase | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;supabase&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    <div class="finding" style="border-left: 4px solid #6b7280;">
+      <div class="finding-header">
+        <span class="badge" style="background: #6b7280;">INFO</span>
+        <strong>DW-002</strong>: Missing Rate Limits
+      </div>
+      <div class="finding-meta">Tool: twitter | Vector: DENIAL_OF_WALLET | Confidence: 30%</div>
+      <p>Server &quot;twitter&quot; has no rate limit or timeout configuration.</p>
+      <div class="evidence"><strong>Evidence:</strong> No rateLimit or timeout fields in server configuration</div>
+      
+      <div class="recommendation"><strong>Recommendation:</strong> Add rate limiting and timeout configuration to prevent excessive API usage and runaway costs.</div>
+    </div>
+    
+  </div>
+
+  <div class="section">
+    <div class="summary">
+      <h2>Summary</h2>
+      <div class="summary-grid">
+        <div class="summary-item"><div class="count" style="color: #dc2626;">64</div><div>CRITICAL</div></div><div class="summary-item"><div class="count" style="color: #ea580c;">0</div><div>HIGH</div></div><div class="summary-item"><div class="count" style="color: #ca8a04;">6</div><div>MEDIUM</div></div><div class="summary-item"><div class="count" style="color: #2563eb;">0</div><div>LOW</div></div><div class="summary-item"><div class="count" style="color: #6b7280;">20</div><div>INFO</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Generated by mcp-vet v0.1.3 | 2026-03-14T11:23:11.098Z
+  </div>
+</div>
+</body>
+</html>

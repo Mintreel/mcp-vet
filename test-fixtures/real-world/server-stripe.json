@@ -1,0 +1,48 @@
+{
+  "name": "stripe",
+  "version": "2.0.0",
+  "tools": [
+    {
+      "name": "get_balance",
+      "description": "Get the current balance of your Stripe account.",
+      "parameters": []
+    },
+    {
+      "name": "list_charges",
+      "description": "List charges on your Stripe account.",
+      "parameters": [
+        { "name": "limit", "type": "number", "description": "Maximum number of charges to return (default: 10, max: 100)" },
+        { "name": "starting_after", "type": "string", "description": "Cursor for pagination" }
+      ]
+    },
+    {
+      "name": "create_charge",
+      "description": "Create a new charge on a customer's card.",
+      "parameters": [
+        { "name": "amount", "type": "number", "description": "Amount in cents", "required": true },
+        { "name": "currency", "type": "string", "description": "Currency code (usd, eur, etc)", "required": true },
+        { "name": "customer_id", "type": "string", "description": "Customer ID or token" },
+        { "name": "description", "type": "string", "description": "Charge description" }
+      ]
+    },
+    {
+      "name": "list_customers",
+      "description": "List customers in your Stripe account.",
+      "parameters": [
+        { "name": "limit", "type": "number", "description": "Maximum results (default: 10, max: 100)" }
+      ]
+    },
+    {
+      "name": "get_customer",
+      "description": "Get details about a specific customer.",
+      "parameters": [
+        { "name": "customer_id", "type": "string", "description": "Customer ID", "required": true }
+      ]
+    }
+  ],
+  "config": {
+    "env": {
+      "STRIPE_API_KEY": "sk_live_dummy_xxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  }
+}

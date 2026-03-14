@@ -1,0 +1,50 @@
+{
+  "name": "twitter",
+  "version": "2.0.0",
+  "tools": [
+    {
+      "name": "search_tweets",
+      "description": "Search for tweets matching a query.",
+      "parameters": [
+        { "name": "query", "type": "string", "description": "Search query", "required": true },
+        { "name": "max_results", "type": "number", "description": "Maximum results (default: 10, max: 100)" },
+        { "name": "tweet_fields", "type": "string", "description": "Additional fields to include" }
+      ]
+    },
+    {
+      "name": "post_tweet",
+      "description": "Post a new tweet.",
+      "parameters": [
+        { "name": "text", "type": "string", "description": "Tweet text", "required": true },
+        { "name": "reply_settings", "type": "string", "description": "Who can reply (everyone, followers, mentioned)" }
+      ]
+    },
+    {
+      "name": "get_user_timeline",
+      "description": "Get tweets from a specific user's timeline.",
+      "parameters": [
+        { "name": "user_id", "type": "string", "description": "User ID or username", "required": true },
+        { "name": "max_results", "type": "number", "description": "Maximum results (default: 10, max: 100)" }
+      ]
+    },
+    {
+      "name": "like_tweet",
+      "description": "Like a tweet.",
+      "parameters": [
+        { "name": "tweet_id", "type": "string", "description": "Tweet ID", "required": true }
+      ]
+    },
+    {
+      "name": "retweet",
+      "description": "Retweet a tweet.",
+      "parameters": [
+        { "name": "tweet_id", "type": "string", "description": "Tweet ID", "required": true }
+      ]
+    }
+  ],
+  "config": {
+    "env": {
+      "TWITTER_BEARER_TOKEN": "dummy_AAAAABbXCPc_abcdefghijklmnopqrstuvwxyz"
+    }
+  }
+}

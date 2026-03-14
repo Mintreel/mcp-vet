@@ -1,0 +1,39 @@
+{
+  "name": "openapi",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "load_schema",
+      "description": "Load and parse an OpenAPI schema from a URL or file path.",
+      "parameters": [
+        { "name": "url_or_path", "type": "string", "description": "URL or file path to OpenAPI schema", "required": true }
+      ]
+    },
+    {
+      "name": "list_endpoints",
+      "description": "List all endpoints defined in the loaded OpenAPI schema.",
+      "parameters": [
+        { "name": "tag", "type": "string", "description": "Filter by tag" },
+        { "name": "method", "type": "string", "description": "Filter by HTTP method (GET, POST, etc)" }
+      ]
+    },
+    {
+      "name": "get_endpoint_details",
+      "description": "Get detailed information about a specific endpoint including parameters and response schema.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Endpoint path", "required": true },
+        { "name": "method", "type": "string", "description": "HTTP method (GET, POST, etc)", "required": true }
+      ]
+    },
+    {
+      "name": "call_endpoint",
+      "description": "Make a request to an endpoint defined in the OpenAPI schema.",
+      "parameters": [
+        { "name": "path", "type": "string", "description": "Endpoint path", "required": true },
+        { "name": "method", "type": "string", "description": "HTTP method", "required": true },
+        { "name": "parameters", "type": "object", "description": "Path and query parameters" },
+        { "name": "body", "type": "object", "description": "Request body" }
+      ]
+    }
+  ]
+}

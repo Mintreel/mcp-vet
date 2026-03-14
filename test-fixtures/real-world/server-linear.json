@@ -1,0 +1,47 @@
+{
+  "name": "linear",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "list_issues",
+      "description": "List issues in Linear workspace with optional filtering.",
+      "parameters": [
+        { "name": "team_id", "type": "string", "description": "Team ID to filter by" },
+        { "name": "status", "type": "string", "description": "Filter by status (backlog, todo, in_progress, done)" },
+        { "name": "limit", "type": "number", "description": "Limit number of results (default: 50)" }
+      ]
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new issue in Linear.",
+      "parameters": [
+        { "name": "team_id", "type": "string", "description": "Team ID", "required": true },
+        { "name": "title", "type": "string", "description": "Issue title", "required": true },
+        { "name": "description", "type": "string", "description": "Issue description" },
+        { "name": "priority", "type": "number", "description": "Priority level (0-4)" }
+      ]
+    },
+    {
+      "name": "update_issue",
+      "description": "Update an existing issue.",
+      "parameters": [
+        { "name": "issue_id", "type": "string", "description": "Issue ID", "required": true },
+        { "name": "status", "type": "string", "description": "New status" },
+        { "name": "assignee_id", "type": "string", "description": "Assignee user ID" }
+      ]
+    },
+    {
+      "name": "add_comment",
+      "description": "Add a comment to an issue.",
+      "parameters": [
+        { "name": "issue_id", "type": "string", "description": "Issue ID", "required": true },
+        { "name": "body", "type": "string", "description": "Comment text", "required": true }
+      ]
+    }
+  ],
+  "config": {
+    "env": {
+      "LINEAR_API_KEY": "dummy_lin_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  }
+}

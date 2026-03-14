@@ -1,0 +1,54 @@
+{
+  "name": "google-drive",
+  "version": "0.2.0",
+  "tools": [
+    {
+      "name": "list_files",
+      "description": "List files and folders in Google Drive. Returns file IDs, names, and metadata.",
+      "parameters": [
+        { "name": "folder_id", "type": "string", "description": "Folder ID to list (root if not specified)" },
+        { "name": "page_size", "type": "number", "description": "Number of results per page (default: 10, max: 100)" },
+        { "name": "query", "type": "string", "description": "Search query to filter results" }
+      ]
+    },
+    {
+      "name": "get_file",
+      "description": "Get file metadata and download URL for a file in Google Drive.",
+      "parameters": [
+        { "name": "file_id", "type": "string", "description": "ID of the file to retrieve", "required": true },
+        { "name": "export_format", "type": "string", "description": "Format to export (pdf, docx, xlsx, etc)" }
+      ]
+    },
+    {
+      "name": "create_file",
+      "description": "Create a new file or folder in Google Drive.",
+      "parameters": [
+        { "name": "name", "type": "string", "description": "Name of the file or folder", "required": true },
+        { "name": "parent_folder_id", "type": "string", "description": "ID of parent folder" },
+        { "name": "mime_type", "type": "string", "description": "MIME type (application/vnd.google-apps.folder, text/plain, etc)" }
+      ]
+    },
+    {
+      "name": "share_file",
+      "description": "Share a file with specified users or make it public.",
+      "parameters": [
+        { "name": "file_id", "type": "string", "description": "ID of the file to share", "required": true },
+        { "name": "email", "type": "string", "description": "Email address to share with" },
+        { "name": "role", "type": "string", "description": "Role: reader, commenter, or writer" },
+        { "name": "is_public", "type": "boolean", "description": "Make file publicly accessible" }
+      ]
+    },
+    {
+      "name": "delete_file",
+      "description": "Delete a file or folder from Google Drive.",
+      "parameters": [
+        { "name": "file_id", "type": "string", "description": "ID of the file to delete", "required": true }
+      ]
+    }
+  ],
+  "config": {
+    "env": {
+      "GOOGLE_DRIVE_API_KEY": "dummy_key_AIza_BjB2d_xxxxxxxxxxxxxxxx"
+    }
+  }
+}
