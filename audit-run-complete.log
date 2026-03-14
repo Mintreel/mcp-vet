@@ -1,0 +1,59 @@
+🔍 Loading all 20 MCPs from test fixtures...
+
+✓ Loaded 20 MCPs:
+   1. brave-search           v2025.1.0 (2 tools)
+   2. context7               v2025.1.0 (2 tools)
+   3. fetch                  v2025.1.0 (1 tools)
+   4. filesystem             v2025.1.0 (10 tools)
+   5. git                    v2025.1.0 (10 tools)
+   6. github                 v2025.1.0 (12 tools)
+   7. google-drive           v0.2.0 (5 tools)
+   8. linear                 v1.0.0 (4 tools)
+   9. memory                 v2025.1.0 (9 tools)
+  10. mysql                  v2.0.8 (1 tools)
+  11. notion                 v0.0.7 (19 tools)
+  12. openapi                v1.0.0 (4 tools)
+  13. playwright             v2025.1.0 (27 tools)
+  14. postgres               v2025.1.0 (3 tools)
+  15. puppeteer              v2025.5.12 (7 tools)
+  16. sequential-thinking    v2025.1.0 (1 tools)
+  17. slack                  v2025.4.25 (8 tools)
+  18. stripe                 v2.0.0 (5 tools)
+  19. supabase               v1.5.0 (5 tools)
+  20. twitter                v2.0.0 (5 tools)
+
+🔐 Running security analysis...
+
+📊 Generating reports...
+  ✓ JSON report: /home/user/mcp-vet/audit-reports/top-20-mcps-audit.json
+  ✓ HTML report: /home/user/mcp-vet/audit-reports/top-20-mcps-audit.html
+
+📈 Summary:
+  Total Findings:   90
+  ├─ CRITICAL:      64
+  ├─ HIGH:          0
+  ├─ MEDIUM:        6
+  ├─ LOW:           0
+  └─ INFO:          20
+
+  Average findings per server: 4.50
+
+⚠️  Top Critical/High Issues:
+  1. [PE-002] Dangerous Tool Combination
+     Tool: brave-search
+     Severity: CRITICAL
+  2. [PE-002] Dangerous Tool Combination
+     Tool: brave-search
+     Severity: CRITICAL
+  3. [PE-002] Dangerous Tool Combination
+     Tool: brave-search
+     Severity: CRITICAL
+  4. [PE-002] Dangerous Tool Combination
+     Tool: context7
+     Severity: CRITICAL
+  5. [PE-002] Dangerous Tool Combination
+     Tool: context7
+     Severity: CRITICAL
+
+✅ Audit complete! Reports generated in ./audit-reports/
+
